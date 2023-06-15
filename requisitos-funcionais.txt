@@ -1,0 +1,35 @@
+RF001 - O sistema deve possuir um cadastro/login de usuário com email, usuário, senha, foto, data de nascimento.
+RF002 - O usuário pode criar um Fórum. (titulo, descricao, data de criação)
+RF003 - O usuário pode ver os seus Fóruns já criados.
+RF004 - O usuário pode ver seu feed com posts de vários fóruns.
+RF005 - O usuário pode procurar por Fóruns existentes.
+RF006 - O usuário pode tornar-se membro de qualquer Fórum.
+RF007 - Usuários com devida permissão podem:
+	RF007.1 - Ver posts;
+	RF007.2 - Postar(mensagem, anexo);
+	RF007.3 - Dar like (+1);
+	RF007.4 - Dar deslike (-1);
+	RF007.5 - Remover posts;
+	RF007.6 - Remover membros;
+	RF007.7 - Editar posts;
+	RF007.8 - Promover membros (mudar seu cargo);
+	RF007.9 - Criar/Editar cargos;
+	RF007.10 - Deletar o fórum;
+RF008 - Sair de um fórum (deixar de ser membro).
+RF009 - Visitar a página de um fórum.
+
+RNF001 - O sistema não pode ser muito feio.
+RNF002 - O sistema não pode ser muito inseguro
+RNF003 - O sistema deve utilizar Angular, C# (E.F) e SQL.
+RNF004 - O sistema não deve ser lento demais.
+
+PAGINAS
+- FEED
+- POST
+- LOGIN/CADASTRO
+- MEU PERFIL
+- MEUS FORUNS
+- FAVORITOS (FÓRUNS ONDE SE É MEMBRO)
+
+PAGINAS MENOS IMPORTANTES
+- PERFIL DE OUTROS
