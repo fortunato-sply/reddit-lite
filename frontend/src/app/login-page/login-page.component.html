@@ -1,0 +1,16 @@
+<section class="login-container">
+  <div class="login-box">
+    <div class="image-side">
+      <img src="../../assets/lite-art.png" alt="">
+    </div>
+    <div class="form-side">
+      <div class="form">
+        <div class="fields">
+          <input type="email" name="" id="" placeholder="Email" [(ngModel)] = "email">
+          <app-password [seePassword]="false" [breakLineOnInput]="true" (valueChanged)="passwordChanged($event)" />
+        </div>
+        <button (click)="login()">Continuar</button>
+      </div>
+    </div>
+  </div>
+</section>
