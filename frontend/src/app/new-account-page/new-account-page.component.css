@@ -1,0 +1,105 @@
+.login-container{
+  background-color: var(--thin-white);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-box {
+  display: flex;
+  border-radius: 12px;
+  background-color: transparent;
+  align-items: center;
+  width: 60%;
+  height: 70%;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+}
+
+.image-side {
+  display: flex;
+  background-color: #111;
+  width: 50%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px 0 0 12px;
+}
+
+.form-side {
+  background-color: #fff;
+  display: flex;
+  width: 50%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  border-radius: 0 12px 12px 0;
+}
+
+.fields .style-input {
+  border: 0;
+  width: 280px;
+  font-size: 1rem;
+  padding: 12px;
+  background-color: var(--thin-white);
+  transition: .3s;
+  border-radius: 12px;
+}
+
+.fields .style-input:hover {
+  filter: brightness(0.9);
+}
+
+.fields .style-input:focus {
+  filter: brightness(0.9);
+  outline: 0;
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form button {
+  margin-top: 80px;
+  border: 0;
+  padding: 12px;
+  background-color: var(--green);
+  border-radius: 12px;
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: .4s;
+  width: 200px;
+}
+
+.form button:hover {
+  filter: brightness(1.1);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.forgot-pass {
+  margin-top: 25px;
+  text-decoration: none;
+  color: #777;
+  font-size: 0.8rem;
+  transition: .5s;
+}
+
+.forgot-pass:hover { 
+  color: #111;
+}
+
+.new-acc {
+  text-decoration: none;
+  color: #111;
+  margin-top: 5px;
+  font-size: 1rem;
+}

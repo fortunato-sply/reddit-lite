@@ -68,11 +68,11 @@ export class PasswordComponent implements OnInit {
   protected eyeBtnClick() {
     if(this.seePassword) {
       this.seePassword = false;
-      this.icon = faEyeSlash;
+      this.icon = faEye;
     }
     else {
       this.seePassword = true;
-      this.icon = faEye;
+      this.icon = faEyeSlash;
     }
 
     this.updateInput();

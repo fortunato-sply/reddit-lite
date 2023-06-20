@@ -13,7 +13,7 @@
   background-color: transparent;
   align-items: center;
   width: 60%;
-  height: 80%;
+  height: 70%;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }
 
@@ -48,11 +48,11 @@
 }
 
 .fields input:hover {
-  background-color: var(--white);
+  filter: brightness(0.9);
 }
 
 .fields input:focus {
-  background-color: var(--white);
+  filter: brightness(0.9);
   outline: 0;
 }
 
@@ -86,12 +86,20 @@
 }
 
 .forgot-pass {
-  margin-top: 15px;
+  margin-top: 25px;
   text-decoration: none;
   color: #777;
+  font-size: 0.8rem;
   transition: .5s;
 }
 
-.forgot-pass:hover {
+.forgot-pass:hover { 
   color: #111;
+}
+
+.new-acc {
+  text-decoration: none;
+  color: #111;
+  margin-top: 5px;
+  font-size: 1rem;
 }

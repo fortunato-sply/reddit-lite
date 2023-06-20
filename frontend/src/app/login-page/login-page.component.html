@@ -10,7 +10,8 @@
           <app-password [seePassword]="false" [breakLineOnInput]="true" (valueChanged)="passwordChanged($event)" />
         </div>
         <button (click)="login()">Continuar</button>
-        <a class="forgot-pass" href="">Esqueci minha senha</a>
+        <a class="forgot-pass" href="{{'/recover' + email}}">Esqueci minha senha</a>
+        <a class="new-acc" href="newaccount">Criar conta</a>
       </div>
     </div>
   </div>

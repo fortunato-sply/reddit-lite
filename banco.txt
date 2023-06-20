@@ -1,0 +1,3 @@
+na tabela usuario, para a senha:
+	campo SALT
+	campo PASSWORD (hasheado)

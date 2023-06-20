@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-root',

@@ -22,5 +22,6 @@ export class LoginPageComponent {
       sessionStorage.setItem('user', 'pamella');
       this.router.navigate(["/feed"])
     }
+    this.router.navigate(["/feed"])
   }
 }
