@@ -9,9 +9,9 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 })
 
 export class PasswordComponent implements OnInit {
-  icon:IconProp = "eye";
   faEye = faEye;
   faEyeSlash = faEyeSlash;
+  icon = faEye;
 
   // Inputs podem ser acessados de fora do componente como propriedades HTML
   // Outputs podem ser acessados de fora do componente como eventos no estilo onclick
@@ -68,11 +68,11 @@ export class PasswordComponent implements OnInit {
   protected eyeBtnClick() {
     if(this.seePassword) {
       this.seePassword = false;
-      this.icon = "eye-slash";
+      this.icon = faEyeSlash;
     }
     else {
       this.seePassword = true;
-      this.icon = "eye";
+      this.icon = faEye;
     }
 
     this.updateInput();
