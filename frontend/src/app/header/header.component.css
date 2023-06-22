@@ -5,6 +5,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .header-box {
@@ -24,7 +25,8 @@
 
 .logo img {
   height: 120%;
-  width: 4em;
+  width: 3.5em;
+  margin-top: 7px;
 }
 
 nav {
@@ -41,7 +43,8 @@ nav ul {
 }
 
 nav ul li {
-  font-size: 1.075rem;
+  text-transform: lowercase;
+  font-size: 1rem;
   padding: 12px 12px;
   border-radius: 4px;
   cursor: pointer;
@@ -55,4 +58,11 @@ nav ul li:hover {
 a {
   text-decoration: none;
   color: #111;
+}
+
+.afterline {
+  width: 100vw;
+  height: 1px;
+  background-color: #ddd;
+  
 }
