@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-feed-page',
-  templateUrl: './feed-page.component.html',
-  styleUrls: ['./feed-page.component.css']
+  selector: 'app-post',
+  templateUrl: './post.component.html',
+  styleUrls: ['./post.component.css']
 })
-export class FeedPageComponent {
+export class PostComponent {
   arrowUp = faArrowUp;
   arrowDown = faArrowDown;
 

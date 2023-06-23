@@ -1,0 +1,162 @@
+.card {
+  width: 100%;
+  background-color: var(--white);
+  border-radius: 8px;
+  padding: 24px;
+  box-sizing: content-box;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  min-height: 300px;
+}
+
+.user-info img {
+  width: 60px;
+  height: 60px;
+  border-radius: 99px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.text-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-size: 1rem;
+}
+
+.forum-name {
+  font-size: 0.875rem;
+  color: #888;
+}
+
+.content {
+  width: 95%;
+  padding: 12px;
+  margin-top: 25px;
+  font-size: auto;
+  display: flex;
+  flex-wrap: wrap;
+  text-align: left;
+}
+
+.arrow-btn {
+  border: 0;
+  background-color: transparent;
+  transition: .3s;
+  cursor: pointer;
+}
+
+.content-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.likes-box {
+  margin-top: 3%;
+  width: 8%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.ico {
+  font-size: 1.675rem;
+}
+
+.like-count {
+  font-size: 1.3rem;
+}
+
+.green {
+  color: var(--green);
+}
+
+.red {
+  color: var(--red);
+}
+
+.up-animation:hover {
+  transform: translateY(-30%);
+}
+
+.down-animation:hover {
+  transform: translateY(30%);
+}
+
+.comment-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5%;
+}
+
+.afterline {
+  width: 30px;
+  height: 3px;
+  border-radius: 8px;
+  background-color: #ccc;
+}
+
+
+.bigger {
+  width: 30%;
+  margin-bottom: 25px;
+}
+
+.comment-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 16px;
+  gap: 20px;
+}
+
+.leave-comment {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 10px;
+  align-items: center;
+}
+
+.leave-comment textarea {
+  width: 100%;
+  border: 0;
+  background-color: #eee;
+  height: 10vh;
+  border-radius: 12px;
+  text-overflow:  ellipsis;
+  text-align: start;
+  padding: 8px;
+  resize: none;
+}
+
+.leave-comment textarea:focus {
+  outline: 0;
+}
+
+.comment-btn {
+  width: 20%;
+  border: 0;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: var(--green);
+  cursor: pointer;
+  transition: .5s;
+  font-size: 0.95rem;
+}
+
+.comment-btn:hover {
+  filter: brightness(1.1);
+}

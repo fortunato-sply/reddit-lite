@@ -16,6 +16,9 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatNativeDateModule} from '@angular/material/core';
 import { HeaderComponent } from './header/header.component';
+import { CommentComponent } from './comment/comment.component';
+import { PostComponent } from './post/post.component';
+import { MyforumsPageComponent } from './myforums-page/myforums-page.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +28,9 @@ import { HeaderComponent } from './header/header.component';
     PasswordComponent,
     FeedPageComponent,
     HeaderComponent,
+    CommentComponent,
+    PostComponent,
+    MyforumsPageComponent,
   ],
   imports: [
     BrowserModule,
