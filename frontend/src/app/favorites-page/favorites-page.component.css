@@ -7,7 +7,6 @@
   flex-direction: column;
   align-items: center;
   overflow-x: hidden;
-  position: relative;
 }
 
 .myfavorites {
@@ -32,23 +31,4 @@
   justify-content: center;
   padding-bottom: 2%;
   overflow-x: hidden;
-}
-
-.newforum-box {
-  position: absolute;
-  bottom: 3vh;
-  right: 10vw;
-}
-
-.newforum-btn {
-  border: 0;
-  background-color: transparent;
-  font-size: 3rem;
-  cursor: pointer;
-  transition: .5s;
-}
-
-.newforum-btn:hover {
-  scale: 1.1;
-  transform: translateY(-20%);
 }

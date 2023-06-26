@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { faPlus, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-myforums-page',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./myforums-page.component.css']
 })
 export class MyforumsPageComponent {
-
+  plus = faPlusCircle
 }

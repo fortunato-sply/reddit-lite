@@ -19,6 +19,9 @@ import { HeaderComponent } from './header/header.component';
 import { CommentComponent } from './comment/comment.component';
 import { PostComponent } from './post/post.component';
 import { MyforumsPageComponent } from './myforums-page/myforums-page.component';
+import { FavoritesPageComponent } from './favorites-page/favorites-page.component';
+import { ForumCardComponent } from './forum-card/forum-card.component';
+import { SearchBoxComponent } from './search-box/search-box.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,9 @@ import { MyforumsPageComponent } from './myforums-page/myforums-page.component';
     CommentComponent,
     PostComponent,
     MyforumsPageComponent,
+    FavoritesPageComponent,
+    ForumCardComponent,
+    SearchBoxComponent,
   ],
   imports: [
     BrowserModule,

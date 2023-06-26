@@ -4,24 +4,22 @@
   background-color: var(--thin-white);
   display: flex;
   justify-content: center;
-  box-sizing: content-box;
 }
 
 .feed-container {
-  width: 70%;
+  width: 80%;
   display: flex;
-  justify-content: space-between;
   margin-top: 10px;
 }
 
 .info-side {
-  width: 40%;
+  width: 35%;
   display: flex;
   justify-content: center;
 }
 
 .profile-card {
-  width: 85%;
+  width: 80%;
   height: 290px;
   background-color: var(--white);
   border-radius: 8px;
