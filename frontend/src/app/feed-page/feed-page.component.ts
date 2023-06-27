@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
+import { faArrowUp, faArrowDown, faStar } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-feed-page',
@@ -9,6 +9,7 @@ import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 export class FeedPageComponent {
   arrowUp = faArrowUp;
   arrowDown = faArrowDown;
+  star = faStar;
 
   Likes = 0;
   newComment = "";

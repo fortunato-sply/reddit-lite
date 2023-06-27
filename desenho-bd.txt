@@ -20,7 +20,7 @@ CREATE TABLE FORUM(
 CREATE TABLE POST(
 	id int identity primary key,
 	content varchar(500),
-	likes int DEFAULT 0,
+	createdAt DATETIME,
 	FK_User int not null,
 	FK_Forum int not null,
 	foreign key(FK_USER) REFERENCES User(Id),
@@ -37,7 +37,9 @@ CREATE TABLE LIKES(
 )
 
 CREATE TABLE COMMENT(
+	Id int primary key,
 	content varchar(300),
+	createdAt DATETIME,
 	FK_Post int not null,
 	FK_User int not null,
 	foreign key(FK_Post) REFERENCES Post(Id),

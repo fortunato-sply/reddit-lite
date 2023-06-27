@@ -5,6 +5,7 @@ import { NewAccountPageComponent } from './new-account-page/new-account-page.com
 import { FeedPageComponent } from './feed-page/feed-page.component';
 import { FavoritesPageComponent } from './favorites-page/favorites-page.component';
 import { MyforumsPageComponent } from './myforums-page/myforums-page.component';
+import { EditForumPageComponent } from './edit-forum-page/edit-forum-page.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,11 @@ const routes: Routes = [
     path: "myforums",
     title: "Meus Fóruns",
     component: MyforumsPageComponent
+  },
+  {
+    path: "editforum",
+    title: "Editar fórum",
+    component: EditForumPageComponent
   }
 ];
 

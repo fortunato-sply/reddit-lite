@@ -52,3 +52,85 @@
   scale: 1.1;
   transform: translateY(-20%);
 }
+
+.modal-container {
+  width: 30vw;
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-container h3 {
+  font-weight: 400;
+  letter-spacing: 2px;
+  font-size: 1.5rem;
+}
+
+.inputs {
+  margin-top: 5%;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  align-items: center;
+}
+
+input[type='file']{
+  display: none;
+}
+
+.inputs label {
+  width: 90%;
+  background-color: var(--orange);
+  border-radius: 5px;
+  color: #fff;
+  margin: 10px;
+  padding: 6px 20px;
+  cursor: pointer;
+  transition: 0.5s;
+  text-align: center;
+}
+
+.inputs label:hover {
+  filter: brightness(1.1);
+}
+
+.inputs input {
+  width: 15vw;
+  padding: 12px 20px;
+  font-size: 1rem;
+  border: 0;
+  background-color: var(--thin-white);
+  border-radius: 8px;
+}
+
+textarea {
+  width: 15vw;
+  padding: 12px 20px;
+  font-size: 1rem;
+  border: 0;
+  background-color: var(--thin-white);
+  border-radius: 8px;
+  resize: none;
+}
+
+.inputs input:focus, textarea:focus {
+  outline: 0;
+}
+
+.submit-btn {
+  width: 60%;
+  padding: 16px 8px;
+  border: 0;
+  border-radius: 8px;
+  background-color: var(--green);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: .4s;
+}
+
+.submit-btn:hover {
+  background-color: var(--orange);
+  color: var(--white);
+}

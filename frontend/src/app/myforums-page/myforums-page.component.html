@@ -11,6 +11,18 @@
     
   </div>
   <div class="newforum-box">
-    <button class="newforum-btn"><fa-icon [icon]="plus"/></button>
+    <button class="newforum-btn" (click)="modal.toggle()"><fa-icon [icon]="plus"/></button>
+    <app-modal #modal>
+      <div class="modal-container">
+        <h3>novo fórum</h3>
+        <div class="inputs">
+          <label for="photo">Selecione uma foto</label>
+          <input type="file" name="photo" id="photo">
+          <input type="text" name="name" id="" placeholder="Nome"/>
+          <textarea placeholder="Descrição"></textarea>
+          <button class="submit-btn">criar</button>
+        </div>
+      </div>
+    </app-modal>
   </div>
 </section>

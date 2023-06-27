@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { faPlus, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-myforums-page',
@@ -8,4 +9,5 @@ import { faPlus, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 })
 export class MyforumsPageComponent {
   plus = faPlusCircle
+  
 }

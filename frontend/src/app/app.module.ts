@@ -22,6 +22,11 @@ import { MyforumsPageComponent } from './myforums-page/myforums-page.component';
 import { FavoritesPageComponent } from './favorites-page/favorites-page.component';
 import { ForumCardComponent } from './forum-card/forum-card.component';
 import { SearchBoxComponent } from './search-box/search-box.component';
+import { FavForumComponent } from './fav-forum/fav-forum.component';
+import { EditForumPageComponent } from './edit-forum-page/edit-forum-page.component';
+import { ModalComponent } from './modal/modal.component';
+import { ModalModule } from './modal/modal.module';
+import { ForumPageComponent } from './forum-page/forum-page.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +42,9 @@ import { SearchBoxComponent } from './search-box/search-box.component';
     FavoritesPageComponent,
     ForumCardComponent,
     SearchBoxComponent,
+    FavForumComponent,
+    EditForumPageComponent,
+    ForumPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,6 +57,7 @@ import { SearchBoxComponent } from './search-box/search-box.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonModule,
+    ModalModule
   ],
   providers: [],
   bootstrap: [AppComponent]

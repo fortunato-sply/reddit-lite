@@ -1,0 +1,44 @@
+.forum {
+  background-color: var(--thin-white);
+  width: 18vw;
+  height: 7vh;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  transition: .3s;
+}
+
+.img-side {
+  width: 30%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.img-side img {
+  width: 55px;
+  height: 55px;
+  border-radius: 100px;
+}
+
+.name-side {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  width: 70%;
+  font-size: 1rem;
+}
+
+a {
+  text-decoration: none;
+  color: #111;
+}
+
+.forum:hover {
+  transform: scale(1.02);
+  background-color: var(--orange);
+  color: var(--white);
+}
