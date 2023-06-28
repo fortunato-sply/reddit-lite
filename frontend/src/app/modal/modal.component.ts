@@ -32,7 +32,7 @@ import {
     trigger('modal', [
       transition(':enter', [
         // inicia com o modal "lá em cima"
-        style({ top: -999 }),
+        style({ top: 999 }),
         
         // e finaliza com o modal no meio da tela
         animate('500ms', style({ top: '50%' })),

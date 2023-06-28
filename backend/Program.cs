@@ -1,25 +1,55 @@
+using backend.Model;
+using backend.Controllers;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Adding CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "MainPolicy",
+        policy =>
+        {
+            policy
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowAnyOrigin();
+        });
+});
+
+builder.Services.AddScoped<RedditliteContext>(); // Shared Context
+
+builder.Services.AddTransient<DataUserController>(); // Create class every req
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+
+app.UseCors();
+app.UseSwagger(); // Swagger for debug
+app.UseSwaggerUI(); // Swagger for debug
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();
+
+
+
+public static class ExtensionMethods
+{
+    public static IEnumerable<T> AddMany<T>(this List<T> l, IEnumerable<T> elements)
+    {
+        foreach (var item in elements)
+        {
+            l.Add(item);
+        }
+        return l;
+    }
+}

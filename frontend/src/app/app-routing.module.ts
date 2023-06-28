@@ -6,6 +6,7 @@ import { FeedPageComponent } from './feed-page/feed-page.component';
 import { FavoritesPageComponent } from './favorites-page/favorites-page.component';
 import { MyforumsPageComponent } from './myforums-page/myforums-page.component';
 import { EditForumPageComponent } from './edit-forum-page/edit-forum-page.component';
+import { ForumPageComponent } from './forum-page/forum-page.component';
 
 const routes: Routes = [
   {
@@ -34,9 +35,9 @@ const routes: Routes = [
     component: MyforumsPageComponent
   },
   {
-    path: "editforum",
-    title: "Editar fórum",
-    component: EditForumPageComponent
+    path: "forum",
+    title: "Reddit Lite",
+    component: ForumPageComponent
   }
 ];
 

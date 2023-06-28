@@ -24,7 +24,6 @@ import { ForumCardComponent } from './forum-card/forum-card.component';
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { FavForumComponent } from './fav-forum/fav-forum.component';
 import { EditForumPageComponent } from './edit-forum-page/edit-forum-page.component';
-import { ModalComponent } from './modal/modal.component';
 import { ModalModule } from './modal/modal.module';
 import { ForumPageComponent } from './forum-page/forum-page.component';
 
