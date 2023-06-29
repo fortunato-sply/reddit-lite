@@ -1,5 +1,6 @@
 using backend.Model;
 using backend.Controllers;
+using backend.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,8 +24,9 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddScoped<RedditliteContext>(); // Shared Context
-
 builder.Services.AddTransient<DataUserController>(); // Create class every req
+builder.Services.AddTransient<IForumRepository, ForumRepository>();
+builder.Services.AddTransient<IPostRepository, PostRepository>();
 
 var app = builder.Build();
 

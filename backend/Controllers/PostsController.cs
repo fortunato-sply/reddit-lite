@@ -35,17 +35,15 @@ public class PostsController : ControllerBase
   [HttpPost]
   public async Task<ActionResult> Post(
     [FromServices] IPostRepository repo,
-    [FromBody] PostDTO postDTO,
-    [FromBody] Forum forum,
-    [FromBody] DataUser user
+    [FromBody] HttpPostDTO postDTO
   )
   {
     Post newPost = new Post
     {
       Content = postDTO.Content,
       CreatedAt = DateTime.Now,
-      FkUser = user.Id,
-      FkForum = forum.Id
+      FkUser = postDTO.UserId,
+      FkForum = postDTO.ForumId
     };
 
     await repo.Add(newPost);

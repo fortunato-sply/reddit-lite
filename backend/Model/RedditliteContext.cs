@@ -19,6 +19,8 @@ public partial class RedditliteContext : DbContext
 
     public virtual DbSet<DataUser> DataUsers { get; set; }
 
+    public virtual DbSet<Favorite> Favorites { get; set; }
+
     public virtual DbSet<Forum> Forums { get; set; }
 
     public virtual DbSet<ForumXuser> ForumXusers { get; set; }
@@ -92,25 +94,23 @@ public partial class RedditliteContext : DbContext
             entity.HasOne(d => d.PhotoNavigation).WithMany(p => p.DataUsers)
                 .HasForeignKey(d => d.Photo)
                 .HasConstraintName("FK__DataUser__Photo__3B75D760");
+        });
 
-            entity.HasMany(d => d.FkForums).WithMany(p => p.FkUsers)
-                .UsingEntity<Dictionary<string, object>>(
-                    "Favorite",
-                    r => r.HasOne<Forum>().WithMany()
-                        .HasForeignKey("FkForum")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__Favorites__FK_Fo__4E88ABD4"),
-                    l => l.HasOne<DataUser>().WithMany()
-                        .HasForeignKey("FkUser")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__Favorites__FK_Us__4D94879B"),
-                    j =>
-                    {
-                        j.HasKey("FkUser", "FkForum").HasName("PK__Favorite__5C9718B3C9CD3510");
-                        j.ToTable("Favorites");
-                        j.IndexerProperty<int>("FkUser").HasColumnName("FK_User");
-                        j.IndexerProperty<int>("FkForum").HasColumnName("FK_Forum");
-                    });
+        modelBuilder.Entity<Favorite>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Favorite__3214EC27195046DE");
+
+            entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.FkForum).HasColumnName("FK_Forum");
+            entity.Property(e => e.FkUser).HasColumnName("FK_User");
+
+            entity.HasOne(d => d.FkForumNavigation).WithMany(p => p.Favorites)
+                .HasForeignKey(d => d.FkForum)
+                .HasConstraintName("FK__Favorites__FK_Fo__70DDC3D8");
+
+            entity.HasOne(d => d.FkUserNavigation).WithMany(p => p.Favorites)
+                .HasForeignKey(d => d.FkUser)
+                .HasConstraintName("FK__Favorites__FK_Us__6FE99F9F");
         });
 
         modelBuilder.Entity<Forum>(entity =>

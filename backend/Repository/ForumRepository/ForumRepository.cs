@@ -5,6 +5,8 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Model;
 
+using System.IO;
+
 public class ForumRepository : IForumRepository {
   private RedditliteContext context;
   public ForumRepository(RedditliteContext context)
@@ -31,13 +33,13 @@ public class ForumRepository : IForumRepository {
     await context.SaveChangesAsync();
   }
 
-  public Task<List<Forum>> Filter(Expression<Func<Forum, bool>> exp)
+  public async Task<List<Forum>> Filter(Expression<Func<Forum, bool>> exp)
   {
     var result = context.Forums.Where(exp);
-    return result.ToListAsync();
+    return await result.ToListAsync();
   }
 
-  public Task<List<ForumDTO>> GetUserForums(int userId)
+  public async Task<List<ForumDTO>> GetUserForums(int userId)
   {
     var response = 
       from f in context.Forums
@@ -48,6 +50,7 @@ public class ForumRepository : IForumRepository {
       where f.Owner == userId
       select new ForumDTO
       {
+        Id = f.Id,
         Title = f.Title,
         Description = f.Description,
         Photo = i.Photo,
@@ -55,11 +58,31 @@ public class ForumRepository : IForumRepository {
         Owner = u.Username
       };
       
-  return response.ToListAsync();
+    return await response.ToListAsync();
   }
 
-  public IEnumerable<Forum> GetUserFavoriteForums(DataUser user)
+  public async Task<List<ForumDTO>> GetUserFavoriteForums(int userId)
   {
-
+    var response =
+      from fxu in context.Favorites
+      join u in context.DataUsers
+        on fxu.FkUser equals u.Id
+      join f in context.Forums
+        on fxu.FkForum equals f.Id
+      join i in context.ImageData
+        on f.Photo equals i.Id
+      where fxu.FkUser == userId
+      select new ForumDTO
+      {
+        Id = f.Id,
+        Title = f.Title,
+        Description = f.Description,
+        Photo = i.Photo,
+        CreatedAt = f.CreatedAt,
+        Owner = u.Username
+      };
+      
+    return await response.ToListAsync();
   }
+
 }

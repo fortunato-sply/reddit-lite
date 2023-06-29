@@ -34,4 +34,34 @@ public class ForumController : ControllerBase
 
     return Ok(forums);
   }
+
+  [HttpGet("favorites/{userId}")]
+  public async Task<ActionResult<ForumDTO>> GetUserFavoriteForums(
+    int userId,
+    [FromServices] IForumRepository repo
+  )
+  {
+    var forums = await repo.GetUserFavoriteForums(userId);
+
+    return Ok(forums);
+  }
+
+  [HttpPost("newforum")]
+  public async Task<IActionResult> Create(
+    [FromForm] CreateForumDTO model,
+    [FromServices] IForumRepository repo
+  )
+  {
+    Forum forum = new Forum
+    {
+      Title = model.Title,
+      Description = model.Description,
+      CreatedAt = new DateTime()
+    };
+
+    await repo.AddImage(model.PhotoFile, model.PhotoName);
+
+
+  }
+
 }

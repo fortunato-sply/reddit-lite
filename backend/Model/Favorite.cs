@@ -3,17 +3,15 @@ using System.Collections.Generic;
 
 namespace backend.Model;
 
-public partial class Like
+public partial class Favorite
 {
     public int Id { get; set; }
 
-    public short? Value { get; set; }
-
     public int? FkUser { get; set; }
 
-    public int? FkPost { get; set; }
+    public int? FkForum { get; set; }
 
-    public virtual Post? FkPostNavigation { get; set; }
+    public virtual Forum? FkForumNavigation { get; set; }
 
     public virtual DataUser? FkUserNavigation { get; set; }
 }

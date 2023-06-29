@@ -17,6 +17,8 @@ public partial class Forum
 
     public int? Owner { get; set; }
 
+    public virtual ICollection<Favorite> Favorites { get; set; } = new List<Favorite>();
+
     public virtual ICollection<ForumXuserRole> ForumXuserRoles { get; set; } = new List<ForumXuserRole>();
 
     public virtual DataUser? OwnerNavigation { get; set; }
@@ -24,6 +26,4 @@ public partial class Forum
     public virtual ImageDatum? PhotoNavigation { get; set; }
 
     public virtual ICollection<Post> Posts { get; set; } = new List<Post>();
-
-    public virtual ICollection<DataUser> FkUsers { get; set; } = new List<DataUser>();
 }
