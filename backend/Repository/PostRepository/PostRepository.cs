@@ -1,6 +1,7 @@
 namespace backend.Repositories;
 
 using System.Linq.Expressions;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Model;
 
@@ -31,37 +32,46 @@ public class PostRepository : IRepository<Post>
     await context.SaveChangesAsync();
   }
 
-  public Task<List<Post>> Filter(Expression<Func<Post, bool>> exp)
+  public async Task<List<Post>> Filter(Expression<Func<Post, bool>> exp)
   {
     var result = context.Posts.Where(exp);
-    return result.ToListAsync();
+    return await result.ToListAsync();
   }
 
-  public IEnumerable<PostDTO> GetCompletePosts()
-      => from p in context.Posts
-         join u in context.DataUsers
-           on p.FkUser equals u.Id
-         join c in context.Comments
-          on p.Id equals c.FkPost into commentsGroup
-         join f in context.Forums
-           on p.FkForum equals f.Id
-         select new PostDTO
-         {
-           IdAuthor = u.Id,
-           AuthorName = u.Username,
-           Content = p.Content,
-           CreatedAt = p.CreatedAt,
-           Comments = commentsGroup.ToList(), // puxar os comentários e convertê-los em uma lista
-           IdForum = f.Id,
-           ForumName = f.Title
-         };
-
-  public IEnumerable<PostDTO> GetOrderedPosts()
-      => GetCompletePosts().OrderBy(p => p.CreatedAt);
-
-  public PostDTO? getPostById(int id)
+  private IQueryable<PostDTO> GetCompletePosts()
   {
-    var postResponse = from p in context.Posts
+    var result = 
+      from p in context.Posts
+      join u in context.DataUsers
+        on p.FkUser equals u.Id
+      join c in context.Comments
+      on p.Id equals c.FkPost into commentsGroup
+      join f in context.Forums
+        on p.FkForum equals f.Id
+      select new PostDTO
+      {
+        IdAuthor = u.Id,
+        AuthorName = u.Username,
+        Content = p.Content,
+        CreatedAt = p.CreatedAt,
+        Comments = commentsGroup.ToList(), // puxar os comentários e convertê-los em uma lista
+        IdForum = f.Id,
+        ForumName = f.Title
+      };
+    
+    return result;
+  }
+
+  public async Task<IEnumerable<PostDTO>> GetOrderedPosts()
+      {
+        var response = GetCompletePosts().OrderBy(p => p.CreatedAt);
+        return await response.ToListAsync();
+      }
+        
+
+  public async Task<PostDTO?> getPostById(int id)
+  {
+    IQueryable<PostDTO> postResponse = from p in context.Posts
                        where p.Id == id
                        join u in context.DataUsers
                          on p.FkUser equals u.Id
@@ -80,6 +90,6 @@ public class PostRepository : IRepository<Post>
                          ForumName = f.Title
                        };
 
-    return postResponse.FirstOrDefault();
+    return await postResponse.FirstOrDefaultAsync();
   }
 }
