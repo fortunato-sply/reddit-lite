@@ -49,7 +49,8 @@ public class ForumController : ControllerBase
   [HttpPost("newforum")]
   public async Task<IActionResult> Create(
     [FromForm] CreateForumDTO model,
-    [FromServices] IForumRepository repo
+    [FromServices] IForumRepository repo,
+    [FromServices] IImageService imageService
   )
   {
     Forum forum = new Forum
@@ -59,9 +60,9 @@ public class ForumController : ControllerBase
       CreatedAt = new DateTime()
     };
 
-    await repo.AddImage(model.PhotoFile, model.PhotoName);
-
-
+    await imageService.AddImage(model.PhotoFile, model.PhotoName);
+    var id = await imageService.GetLastImageId();
+    forum.Photo = id;
   }
 
 }
