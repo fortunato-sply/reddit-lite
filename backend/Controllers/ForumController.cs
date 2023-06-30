@@ -63,6 +63,8 @@ public class ForumController : ControllerBase
     await imageService.AddImage(model.PhotoFile, model.PhotoName);
     var id = await imageService.GetLastImageId();
     forum.Photo = id;
+
+    return Ok();
   }
 
 }
