@@ -57,6 +57,10 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.4.0, )"
+            },
+            "fortunato-jwt": {
+              "target": "Package",
+              "version": "[0.1.0, )"
             }
           },
           "imports": [

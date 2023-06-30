@@ -21,28 +21,34 @@ public class ForumController : ControllerBase
     if (forums.Count < 1)
       return BadRequest();
     
-    return Ok(forums);
+    return Ok(forums.First());
   }
 
   [HttpGet("myforums/{userId}")]
-  public async Task<ActionResult<ForumDTO>> GetUserForums(
+  public async Task<ActionResult<List<ForumDTO>>> GetUserForums(
     int userId,
     [FromServices] IForumRepository repo
   )
   {
     var forums = await repo.GetUserForums(userId);
 
+    if(forums.Count < 1)
+      return StatusCode(404);
+
     return Ok(forums);
   }
 
   [HttpGet("favorites/{userId}")]
-  public async Task<ActionResult<ForumDTO>> GetUserFavoriteForums(
+  public async Task<ActionResult<List<ForumDTO>>> GetUserFavoriteForums(
     int userId,
     [FromServices] IForumRepository repo
   )
   {
     var forums = await repo.GetUserFavoriteForums(userId);
 
+    if(forums.Count < 1)
+      return StatusCode(404);
+      
     return Ok(forums);
   }
 

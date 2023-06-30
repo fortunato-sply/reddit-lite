@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "MxvAniAsRYzaB7AigopM3ztEDXTYzZvbDlZ92l4VB3zTlR5Q1Ngywn5ZwyZxLkKUMpU8lB7j7gcH8SsxptN/CQ==",
+  "dgSpecHash": "83VWgGbvp30eqZqdJp2q1oxD/0XYcMYtbXsUIw8DTyfFlsuvlMXgQTBcZ537Aa1cIwOyW1MnSpQxkDl4x7T6Og==",
   "success": true,
   "projectFilePath": "C:\\Users\\disrct\\Desktop\\reddit-lite\\backend\\backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\disrct\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\disrct\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
+    "C:\\Users\\disrct\\.nuget\\packages\\fortunato-jwt\\0.1.0\\fortunato-jwt.0.1.0.nupkg.sha512",
     "C:\\Users\\disrct\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\disrct\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.2\\microsoft.aspnetcore.openapi.7.0.2.nupkg.sha512",
     "C:\\Users\\disrct\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",

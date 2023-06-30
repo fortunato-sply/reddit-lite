@@ -13,9 +13,9 @@ public partial class DataUser
 
     public string Password { get; set; } = null!;
 
-    public string? Salt { get; set; }
+    public string Salt { get; set; } = null!;
 
-    public DateTime Born { get; set; }
+    public DateOnly Born { get; set; }
 
     public int? Photo { get; set; }
 

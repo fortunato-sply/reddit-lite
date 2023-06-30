@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Cors;
 using backend.Model;
+using backend.Repositories;
+using backend.Services;
+using Security.Jwt;
 
 namespace backend.Controllers;
 
@@ -9,13 +12,99 @@ namespace backend.Controllers;
 [Route("user")]
 public class DataUserController : ControllerBase
 {
-    private RedditliteContext context;
-    public DataUserController(RedditliteContext context) => this.context = context;
-
     [HttpGet("{id}")]
-    public DataUser? getUserById(int id)
+    public async Task<ActionResult<DataUser>> GetUserById(
+      int id,
+      [FromServices] IRepository<DataUser> repo
+      )
     {
-      DataUser? user = context.DataUsers.FirstOrDefault(x => x.Id == id);
-      return user;
+      var user = await repo.Filter(u => u.Id == id);
+      
+      if (user.Count < 1)
+        return BadRequest();
+
+      return Ok(user.First());
     }
+
+    [HttpPost("signup")]
+    public async Task<ActionResult<DataUser>> SignUp(
+      [FromForm] SignUpDTO userData,
+      [FromServices] IUserRepository repo,
+      [FromServices] IImageService imageService,
+      [FromServices] ISecurityService security,
+      [FromServices] IJwtService jwt
+    )
+    {
+      var query = await repo.Filter(user => user.Email == userData.Email || user.Username == userData.Username);
+      bool emailOrUsernameExists = query.Count != 0;
+
+      if(emailOrUsernameExists)
+        return BadRequest("E-mail ou usuário já existem.");
+
+      var salt = security.GenerateSalt(8);
+
+      DataUser newUser = new DataUser
+      {
+        Email = userData.Email,
+        Username = userData.Username,
+        Password = security.ApplyHash(userData.Password, salt),
+        Salt = salt,
+        Born = userData.Born
+      };
+
+      await imageService.AddImage(userData.Photo, userData.PhotoName);
+
+      var photoId = await imageService.GetLastImageId();
+      newUser.Photo = photoId;
+
+      await repo.Add(newUser);
+
+      var createdUser = await repo.GetUserByUsername(userData.Username);
+
+      UserToken tokendata = new UserToken
+      {
+        Id = createdUser.Id,
+        Username = createdUser.Username,
+        Email = createdUser.Email,
+        Born = createdUser.Born,
+        PhotoID = createdUser.Photo
+      };
+
+      var token = jwt.GetToken(tokendata);
+
+      return Ok(new { token });
+    }
+  
+  [HttpPost("signin")]
+  public async Task<ActionResult<DataUser>> SignIn(
+    [FromForm] LoginDTO userData,
+    [FromServices] IUserRepository repo,
+    [FromServices] IJwtService jwt,
+    [FromServices] ISecurityService security
+  )
+  {
+    var user = await repo.GetUserByUsername(userData.Username);
+
+    if(user is null)
+      return BadRequest("Nome de usuário incorreto.");
+    
+    var passwordHash = security.ApplyHash(userData.Password, user.Salt);
+
+    if(passwordHash != user.Password)
+      return BadRequest("Senha incorreta.");
+
+    var userToken = new UserToken
+    {
+      Id = user.Id,
+      Username = user.Username,
+      Email = user.Email,
+      Born = user.Born,
+      PhotoID = user.Photo
+    }
+    
+    var token = jwt.GetToken(userToken);
+
+    return Ok(new { token });
+
+  }
 }
