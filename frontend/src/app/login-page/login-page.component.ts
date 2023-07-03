@@ -1,5 +1,8 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { JWT, LoginDTO } from 'src/services/Http/user';
+import { UserService } from 'src/services/Http/user.service';
 
 @Component({
   selector: 'app-login-page',
@@ -7,21 +10,47 @@ import { Router } from '@angular/router';
   styleUrls: ['./login-page.component.css']
 })
 export class LoginPageComponent {
-  email = "";
+  user = "";
   password = "";
+  error = "";
 
-  constructor(private router: Router) { }
-  
+  constructor(private router: Router, private service: UserService) { }
+
   passwordChanged(event: any) {
     this.password = event;
   }
 
-  login() {
-    if (this.email == "email@email.com" && this.password == "123") {
-      // Isso evidentemente não é seguro, mas a ideia é bom e será melhorada no futuro
-      sessionStorage.setItem('user', 'pamella');
-      this.router.navigate(["/feed"])
+  emitAlert() {
+    window.alert("Erro: " + this.error)
+  }
+
+  submitLogin() {
+    const data: LoginDTO = {
+      username: this.user,
+      password: this.password
     }
-    this.router.navigate(["/feed"])
+
+    this.service.login(data)
+      .subscribe({
+        next: (res: JWT) => {
+          sessionStorage.setItem('jwt', res.value ?? "")
+          this.router.navigate(['/feed'])
+        },
+        error: (err: HttpErrorResponse) => {
+          switch(err.status) {
+            case 404:
+              this.error = "Not found"
+              break;
+            case 400:
+              this.error = "Usuário ou senha inválidos."
+              break;
+          }
+
+          this.emitAlert();
+        },
+        complete: () => {
+
+        }
+      })
   }
 }

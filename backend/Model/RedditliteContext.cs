@@ -77,7 +77,6 @@ public partial class RedditliteContext : DbContext
             entity.ToTable("DataUser");
 
             entity.Property(e => e.Id).HasColumnName("ID");
-            entity.Property(e => e.Born).HasColumnType("date");
             entity.Property(e => e.Email)
                 .HasMaxLength(60)
                 .IsUnicode(false);

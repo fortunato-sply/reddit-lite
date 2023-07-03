@@ -13,11 +13,11 @@ public partial class DataUser
 
     public string Password { get; set; } = null!;
 
-    public string Salt { get; set; } = null!;
-
-    public DateOnly Born { get; set; }
+    public string? Salt { get; set; }
 
     public int? Photo { get; set; }
+
+    public DateTime? Born { get; set; }
 
     public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
 

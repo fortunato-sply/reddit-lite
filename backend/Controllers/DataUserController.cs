@@ -27,8 +27,8 @@ public class DataUserController : ControllerBase
     }
 
     [HttpPost("signup")]
-    public async Task<ActionResult<DataUser>> SignUp(
-      [FromForm] SignUpDTO userData,
+    public async Task<ActionResult<UserToken>> SignUp(
+      [FromBody] SignUpDTO userData,
       [FromServices] IUserRepository repo,
       [FromServices] IImageService imageService,
       [FromServices] ISecurityService security,
@@ -76,8 +76,8 @@ public class DataUserController : ControllerBase
     }
   
   [HttpPost("signin")]
-  public async Task<ActionResult<DataUser>> SignIn(
-    [FromForm] LoginDTO userData,
+  public async Task<ActionResult<UserToken>> SignIn(
+    [FromBody] LoginDTO userData,
     [FromServices] IUserRepository repo,
     [FromServices] IJwtService jwt,
     [FromServices] ISecurityService security
@@ -100,7 +100,7 @@ public class DataUserController : ControllerBase
       Email = user.Email,
       Born = user.Born,
       PhotoID = user.Photo
-    }
+    };
     
     var token = jwt.GetToken(userToken);
 

@@ -26,6 +26,8 @@ import { FavForumComponent } from './fav-forum/fav-forum.component';
 import { EditForumPageComponent } from './edit-forum-page/edit-forum-page.component';
 import { ModalModule } from './modal/modal.module';
 import { ForumPageComponent } from './forum-page/forum-page.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { UploaderComponent } from './uploader/uploader.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,7 @@ import { ForumPageComponent } from './forum-page/forum-page.component';
     FavForumComponent,
     EditForumPageComponent,
     ForumPageComponent,
+    UploaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,7 +59,8 @@ import { ForumPageComponent } from './forum-page/forum-page.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonModule,
-    ModalModule
+    ModalModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

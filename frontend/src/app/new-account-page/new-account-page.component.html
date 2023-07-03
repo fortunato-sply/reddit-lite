@@ -5,6 +5,7 @@
     </div>
     <div class="form-side">
       <div class="form">
+        <app-uploader name="photo" (onUploadFinished)="handleFileUpload($event)" [(ngModel)]="photo" ></app-uploader>
         <div class="fields">
           <input class="style-input" type="text" name="" id="" placeholder="Usuário" [(ngModel)]="user">
           <input class="style-input" type="email" name="" id="" placeholder="Email" [(ngModel)]="email">
@@ -12,6 +13,7 @@
           <app-password [seePassword]="false" [breakLineOnInput]="true" (valueChanged)="passwordChanged($event)" />
         </div>
         <button (click)="createAccount()">Cadastrar</button>
+        <a href="/login" style="margin-top: 15px; text-decoration: none; color: #000; font-size: 0.875rem;">Já tem uma conta? Fazer login</a>
       </div>
     </div>
   </div>

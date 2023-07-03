@@ -6,11 +6,11 @@
     <div class="form-side">
       <div class="form">
         <div class="fields">
-          <input type="email" name="" id="" placeholder="Email" [(ngModel)] = "email">
+          <input type="text" name="" id="" placeholder="Usuário" [(ngModel)] = "user">
           <app-password [seePassword]="false" [breakLineOnInput]="true" (valueChanged)="passwordChanged($event)" />
         </div>
-        <button (click)="login()">Continuar</button>
-        <a class="forgot-pass" href="{{'/recover' + email}}">Esqueci minha senha</a>
+        <button (click)="submitLogin()">Continuar</button>
+        <a class="forgot-pass" href="{{'/recover' + user}}">Esqueci minha senha</a>
         <a class="new-acc" href="newaccount">Criar conta</a>
       </div>
     </div>
