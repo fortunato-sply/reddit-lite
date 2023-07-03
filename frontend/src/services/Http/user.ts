@@ -6,6 +6,15 @@ interface UserData {
   photoID: number;
 }
 
+interface UserToken {
+  authenticated: boolean,
+  id: number,
+  username: string,
+  email: string,
+  born: Date,
+  photoId: number
+}
+
 interface LoginDTO {
   username: string;
   password: string;
@@ -16,12 +25,10 @@ interface SignUpDTO {
   email: string;
   password: string;
   born: Date;
-  photo: File | null,
-  photoName: string
 }
 
 interface JWT {
   value?: string;
 }
 
-export { UserData, LoginDTO, JWT, SignUpDTO };
+export { UserData, LoginDTO, JWT, SignUpDTO, UserToken };

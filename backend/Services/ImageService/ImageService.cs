@@ -8,18 +8,15 @@ public class ImageService : IImageService
   public ImageService(RedditliteContext context)
     => this.context = context;
     
-  public async Task AddImage(IFormFile file, string name)
+  public async Task AddImage(IFormFile file)
   {
     if (file != null && file.Length > 0)
     {
-      byte[] fileBytes;
-      using (var memoryStream = new MemoryStream())
-      {
-        file.CopyTo(memoryStream);
-        fileBytes = memoryStream.ToArray();
-      }
+      using MemoryStream ms = new MemoryStream();
 
-      ImageDatum img = new ImageDatum { Photo = fileBytes };
+      await file.CopyToAsync(ms);
+      var data = ms.GetBuffer();
+      ImageDatum img = new ImageDatum { Photo = data };
 
       await context.ImageData.AddAsync(img);
       await context.SaveChangesAsync();
@@ -28,13 +25,12 @@ public class ImageService : IImageService
 
       var location = new Location
       {
-        Nome = name,
+        Nome = file.Name,
         Photo = lastImgId
       };
 
       await context.Locations.AddAsync(location);
       await context.SaveChangesAsync();
-      
     }
   }
 

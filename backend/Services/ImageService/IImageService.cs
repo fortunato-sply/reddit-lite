@@ -1,5 +1,5 @@
 public interface IImageService
 {
-  Task AddImage(IFormFile file, string name);
+  Task AddImage(IFormFile file);
   Task<int> GetLastImageId();
 }

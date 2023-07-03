@@ -52,13 +52,7 @@ public class DataUserController : ControllerBase
         Born = userData.Born
       };
 
-      await imageService.AddImage(userData.Photo, userData.PhotoName);
-
-      var photoId = await imageService.GetLastImageId();
-      newUser.Photo = photoId;
-
       await repo.Add(newUser);
-
       var createdUser = await repo.GetUserByUsername(userData.Username);
 
       UserToken tokendata = new UserToken
@@ -99,12 +93,33 @@ public class DataUserController : ControllerBase
       Username = user.Username,
       Email = user.Email,
       Born = user.Born,
-      PhotoID = user.Photo
+      PhotoID = user.Photo,
+      Authenticated = true
     };
     
     var token = jwt.GetToken(userToken);
 
     return Ok(new { token });
 
+  }
+
+  [HttpPost("validate")]
+  public async Task<ActionResult<UserToken>> ValidateJwt(
+    [FromServices] IJwtService jwtService,
+    [FromBody] Jwt jwt
+  )
+  {
+    if (jwt.Value == "" || jwt.Value is null)
+      return Ok (new UserToken { Authenticated = false });
+    
+    try
+    {
+      var result = jwtService.Validate<UserToken>(jwt.Value);
+      return Ok(result);
+    }
+    catch (Exception)
+    {
+      return Ok(new UserToken { Authenticated = false });
+    }
   }
 }

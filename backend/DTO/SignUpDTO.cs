@@ -4,6 +4,4 @@ public class SignUpDTO
   public string Email { get; set; }
   public string Password { get; set; }
   public DateTime? Born { get; set; }
-  public IFormFile Photo { get; set; }
-  public string PhotoName { get; set; }
 }

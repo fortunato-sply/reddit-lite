@@ -12,7 +12,7 @@
           <input class="style-input" type="date" placeholder="Data de nascimento" [(ngModel)]="born">
           <app-password [seePassword]="false" [breakLineOnInput]="true" (valueChanged)="passwordChanged($event)" />
         </div>
-        <button (click)="createAccount()">Cadastrar</button>
+        <button (click)="submitLogin()">Cadastrar</button>
         <a href="/login" style="margin-top: 15px; text-decoration: none; color: #000; font-size: 0.875rem;">Já tem uma conta? Fazer login</a>
       </div>
     </div>

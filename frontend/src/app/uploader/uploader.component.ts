@@ -24,7 +24,9 @@ export class UploaderComponent implements OnInit {
     this.value = new FormData();
     this.value.append('file', fileToUpload, fileToUpload.name);
     this.imgUrl = URL.createObjectURL(fileToUpload);
+    
     console.log(this.value)
+
     this.onUploadFinished.emit(this.value);
   };
 

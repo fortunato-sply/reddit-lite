@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from '@angular/core';
-import { JWT, LoginDTO, SignUpDTO } from "./user";
+import { JWT, LoginDTO, SignUpDTO, UserToken } from "./user";
 
 @Injectable({
   providedIn: 'root'
@@ -14,5 +14,9 @@ export class UserService {
 
   signUp(data: SignUpDTO) {
     return this.http.post<JWT>('http://localhost:5241/user/signup', data);
+  }
+
+  validate(jwt: JWT) {
+    return this.http.post<UserToken>('http://localhost:5241/user/validate', jwt);
   }
 }

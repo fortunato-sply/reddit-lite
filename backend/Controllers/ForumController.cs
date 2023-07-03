@@ -65,8 +65,7 @@ public class ForumController : ControllerBase
       Description = model.Description,
       CreatedAt = new DateTime()
     };
-
-    await imageService.AddImage(model.PhotoFile, model.PhotoName);
+    
     var id = await imageService.GetLastImageId();
     forum.Photo = id;
 
