@@ -2,8 +2,10 @@ using backend.Model;
 using backend.Controllers;
 using backend.Repositories;
 using backend.Services;
-using Security.Jwt;
-using System;
+using Securitas.JWT;
+using Securitas;
+using System.Security.Cryptography;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +28,8 @@ builder.Services.AddCors(options =>
         });
 });
 
+#region base services
+
 builder.Services.AddScoped<RedditliteContext>(); // Shared Context
 builder.Services.AddTransient<DataUserController>(); // Create class every req
 builder.Services.AddTransient<IForumRepository, ForumRepository>();
@@ -35,11 +39,43 @@ builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IImageService, ImageService>();
 builder.Services.AddTransient<IUserService, UserService>();
 
-builder.Services.AddTransient<ISecurityService, SecurityService>();
-builder.Services.AddTransient<IPasswordProvider, PasswordProvider>(p => {
-    return new PasswordProvider("minhasenha");
-});
-builder.Services.AddTransient<IJwtService, JwtService>();
+builder.Services.AddSingleton(
+    p => new EnvironmentFile(".env")
+);
+
+builder.Services.AddScoped<HashAlgorithm>(
+    p => SHA256.Create()
+);
+
+builder.Services.AddSingleton(
+    p => Encoding.UTF8
+);
+
+#endregion
+
+#region Security services
+
+builder.Services.AddTransient<IPasswordProvider>(
+    p => new ConstPasswordProvider(
+        p.GetService<EnvironmentFile>()
+            .Get("SECRET_PASSWORD")
+    )
+);
+
+builder.Services.AddTransient<ISecurityService>(
+    p => new SecurityService()
+);
+
+
+builder.Services.AddTransient<IJWTService>(
+    p => new JWTService(
+        p.GetService<IPasswordProvider>()!,
+        p.GetService<Encoding>()!,
+        HashAlgorithmType.HS256
+    )
+);
+
+#endregion
 
 var app = builder.Build();
 

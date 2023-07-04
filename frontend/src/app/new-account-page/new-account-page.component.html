@@ -5,10 +5,13 @@
     </div>
     <div class="form-side">
       <div class="form">
+        <div *ngIf="emitError" class="error">
+          Usuário ou email já cadastrados.
+        </div>
         <app-uploader name="photo" (onUploadFinished)="handleFileUpload($event)" [(ngModel)]="photo" ></app-uploader>
         <div class="fields">
-          <input class="style-input" type="text" name="" id="" placeholder="Usuário" [(ngModel)]="user">
-          <input class="style-input" type="email" name="" id="" placeholder="Email" [(ngModel)]="email">
+          <input class="style-input" type="text" name="" id="" placeholder="Usuário" [(ngModel)]="user" (ngModelChange)="onValueChanged()">
+          <input class="style-input" type="email" name="" id="" placeholder="Email" [(ngModel)]="email" (ngModelChange)="onValueChanged()">
           <input class="style-input" type="date" placeholder="Data de nascimento" [(ngModel)]="born">
           <app-password [seePassword]="false" [breakLineOnInput]="true" (valueChanged)="passwordChanged($event)" />
         </div>

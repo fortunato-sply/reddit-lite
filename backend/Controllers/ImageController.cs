@@ -43,17 +43,18 @@ public class ImageController : ControllerBase
     {
       var jwt = Request.Form["jwt"].ToString();
 
-      DataUser user;
+      UserToken user;
       try
       {
         user = await userService.ValidateUserToken(new Jwt { Value = jwt });
+        Console.WriteLine(user);
       }
       catch (Exception ex)
       {
+        Console.WriteLine("aqui " + ex.Message);
         return BadRequest(ex.Message);
       }
 
-      Console.WriteLine("passou");
 
       if (user is null)
         return NotFound();
@@ -71,9 +72,30 @@ public class ImageController : ControllerBase
       await imageService.AddImage(file);
       var imgId = await imageService.GetLastImageId();
 
-      user.Photo = imgId;
-      await userRepo.Update(user);
+      var userData = await userRepo.GetUserByUsername(user.Username); 
+      userData.Photo = imgId;
+      await userRepo.Update(userData);
 
       return Ok();
+    }
+
+    [HttpGet("{code}")]
+    public async Task<ActionResult> getImageById(
+      string code,
+      [FromServices] IImageService imageService
+    )
+    {
+      if (int.TryParse(code, out int id))
+      {
+        var query = await imageService.Filter(i => i.Id == id);
+        var img = query.FirstOrDefault();
+
+        if (img is null)
+          return NotFound();
+        
+        return File(img.Photo, "image/jpeg");
+      }
+
+      return BadRequest("code needs to be an integer");
     }
 }

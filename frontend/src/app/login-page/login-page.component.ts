@@ -10,13 +10,20 @@ import { UserService } from 'src/services/Http/user.service';
   styleUrls: ['./login-page.component.css']
 })
 export class LoginPageComponent {
-  user = "";
-  password = "";
-  error = "";
+  user: string = "";
+  password: string = "";
+
+  emitError: boolean = false;
+  error: string = "";
 
   constructor(private router: Router, private service: UserService) { }
 
+  onValueChanged() {
+    this.emitError = false;
+  }
+
   passwordChanged(event: any) {
+    this.emitError = false;
     this.password = event;
   }
 
@@ -34,6 +41,7 @@ export class LoginPageComponent {
       .subscribe({
         next: (res: JWT) => {
           sessionStorage.setItem('jwt', res.value ?? "")
+          window.alert("jwt: " + res.value);
           this.router.navigate(['/feed'])
         },
         error: (err: HttpErrorResponse) => {
@@ -46,7 +54,7 @@ export class LoginPageComponent {
               break;
           }
 
-          this.emitAlert();
+          this.emitError = true;
         },
         complete: () => {
 

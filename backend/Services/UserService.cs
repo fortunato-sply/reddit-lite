@@ -1,35 +1,48 @@
-using Security.Jwt;
+using Securitas.JWT;
 
 using backend.Model;
 using backend.Repositories;
 
 public interface IUserService
 {
-  Task<DataUser> ValidateUserToken(Jwt jwt);
+  Task<UserToken> ValidateUserToken(Jwt jwt);
 }
 
 public class UserService : IUserService
 {
-  private IJwtService jwtService;
+  private IJWTService jwtService;
   private IUserRepository userRepository;
 
-  public UserService(IJwtService jwtService, IUserRepository userRepository)
+  public UserService(IJWTService jwtService, IUserRepository userRepository)
   {
     this.jwtService = jwtService;
     this.userRepository = userRepository;
   }
 
-  public async Task<DataUser> ValidateUserToken(Jwt jwt)
+  public async Task<UserToken> ValidateUserToken(Jwt jwt)
   {
-    DataUser user;
-
-    var token = jwtService.Validate<UserToken>(jwt.Value);
+    var token = jwtService.ValidateToken<UserToken>(jwt.Value).Data;
 
     if(!token.Authenticated)
+    {
+      Console.WriteLine("nao-autenticado");
       throw new InvalidDataException();
+    }
 
-    user = await userRepository.GetUserByUsername(token.Username);
-    return user;
+    Console.WriteLine("autenticado");
+    var user = await userRepository.GetUserByUsername(token.Username);
+
+    var userToken = new UserToken
+    {
+      Id = user.Id,
+      Authenticated = true,
+      Email = user.Email,
+      Username = user.Username,
+      Born = user.Born,
+      PhotoID = user.Photo
+    };
+
+    return userToken;
   }
 }
 

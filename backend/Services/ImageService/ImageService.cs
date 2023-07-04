@@ -1,4 +1,4 @@
-using backend;
+using System.Linq.Expressions;
 using backend.Model;
 using Microsoft.EntityFrameworkCore;
 
@@ -36,10 +36,16 @@ public class ImageService : IImageService
 
   public async Task<int> GetLastImageId()
   {
-    var img = await context.ImageData.LastOrDefaultAsync();
+    var img = await context.ImageData.OrderByDescending(i => i.Id).FirstOrDefaultAsync();
     if(img != null)
       return img.Id;
     
     return 0;
+  }
+
+  public async Task<List<ImageDatum>> Filter(Expression<Func<ImageDatum, bool>> exp)
+  {
+    var result = context.ImageData.Where(exp);
+    return await result.ToListAsync();
   }
 }

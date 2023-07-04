@@ -38,9 +38,9 @@ export class PasswordComponent implements OnInit {
     this.updateInput()
     this.seePasswordChanged.emit(this.seePassword);
   }
+  
   protected updateInput() {
     if (this.initialState) {
-      this.inputText = "Senha"
       this.inputType = "text"
       this.inputStyle = "color: gray;"
       return

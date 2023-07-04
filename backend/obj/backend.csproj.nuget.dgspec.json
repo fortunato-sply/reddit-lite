@@ -61,6 +61,10 @@
             "fortunato-jwt": {
               "target": "Package",
               "version": "[0.1.0, )"
+            },
+            "securitas": {
+              "target": "Package",
+              "version": "[0.2.1, )"
             }
           },
           "imports": [

@@ -22,6 +22,7 @@ export class NewAccountPageComponent {
   imgForm?: FormData;
 
   error: string = '';
+  emitError: boolean = false;
 
   constructor(
     private router: Router, 
@@ -30,7 +31,12 @@ export class NewAccountPageComponent {
     ) { }
 
   passwordChanged(event: any) {
+    this.emitError = false;
     this.password = event;
+  }
+
+  onValueChanged() {
+    this.emitError = false;
   }
 
   emitAlert() {
@@ -41,7 +47,7 @@ export class NewAccountPageComponent {
     this.imgForm = value;
   }
 
-  submitLogin() {
+  async submitLogin() {
     const data: SignUpDTO = {
       email: this.email,
       username: this.user,
@@ -52,10 +58,9 @@ export class NewAccountPageComponent {
     this.userService.signUp(data)
       .subscribe({
         next: (res: JWT) => {
-          sessionStorage.setItem('jwt', res.value ?? "")
-
           this.userService.validate(res)
             .subscribe((res: UserToken) => {
+              console.log(res);
               if (this.imgForm) {
                 this.imageService
                   .updateUserImage(this.imgForm)
@@ -63,12 +68,13 @@ export class NewAccountPageComponent {
               }
             })
 
-          window.alert('sucesso. jwt: ' + res)
+          // window.alert('sucesso. jwt: ' + res)
           this.router.navigate(['/login'])
         },
         error: (err: HttpErrorResponse) => {
           switch(err.status) {
             case 400:
+              this.emitError = true;
               this.error = "Usuário ja existe."
               break;
             case 200:

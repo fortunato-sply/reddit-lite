@@ -5,8 +5,11 @@
     </div>
     <div class="form-side">
       <div class="form">
+        <div *ngIf="emitError" class="error">
+          Usuário ou senha inválidos.
+        </div>
         <div class="fields">
-          <input type="text" name="" id="" placeholder="Usuário" [(ngModel)] = "user">
+          <input type="text" name="" id="" placeholder="Usuário" [(ngModel)] = "user" (ngModelChange)="onValueChanged()">
           <app-password [seePassword]="false" [breakLineOnInput]="true" (valueChanged)="passwordChanged($event)" />
         </div>
         <button (click)="submitLogin()">Continuar</button>

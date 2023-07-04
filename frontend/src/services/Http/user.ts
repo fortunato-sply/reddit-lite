@@ -12,7 +12,7 @@ interface UserToken {
   username: string,
   email: string,
   born: Date,
-  photoId: number
+  photoID: number
 }
 
 interface LoginDTO {
@@ -28,7 +28,7 @@ interface SignUpDTO {
 }
 
 interface JWT {
-  value?: string;
+  value: string | null;
 }
 
 export { UserData, LoginDTO, JWT, SignUpDTO, UserToken };

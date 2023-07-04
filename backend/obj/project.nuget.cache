@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "83VWgGbvp30eqZqdJp2q1oxD/0XYcMYtbXsUIw8DTyfFlsuvlMXgQTBcZ537Aa1cIwOyW1MnSpQxkDl4x7T6Og==",
+  "dgSpecHash": "9rHAYxiJ//UEERtRPvP9Phm3De2KusuOOOruGAGN9YZ2KFiyAy89umxjeXkjdAWsoCxCDcnjPbyx3zIHnaTqfw==",
   "success": true,
   "projectFilePath": "C:\\Users\\disrct\\Desktop\\reddit-lite\\backend\\backend.csproj",
   "expectedPackageFiles": [
@@ -45,6 +45,7 @@
     "C:\\Users\\disrct\\.nuget\\packages\\microsoft.win32.registry\\5.0.0\\microsoft.win32.registry.5.0.0.nupkg.sha512",
     "C:\\Users\\disrct\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
     "C:\\Users\\disrct\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
+    "C:\\Users\\disrct\\.nuget\\packages\\securitas\\0.2.1\\securitas.0.2.1.nupkg.sha512",
     "C:\\Users\\disrct\\.nuget\\packages\\swashbuckle.aspnetcore\\6.4.0\\swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
     "C:\\Users\\disrct\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.4.0\\swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
     "C:\\Users\\disrct\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.4.0\\swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",

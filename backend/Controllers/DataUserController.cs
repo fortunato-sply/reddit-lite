@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Cors;
 using backend.Model;
 using backend.Repositories;
 using backend.Services;
-using Security.Jwt;
+using Securitas.JWT;
 
 namespace backend.Controllers;
 
@@ -32,7 +32,7 @@ public class DataUserController : ControllerBase
       [FromServices] IUserRepository repo,
       [FromServices] IImageService imageService,
       [FromServices] ISecurityService security,
-      [FromServices] IJwtService jwt
+      [FromServices] IJWTService jwt
     )
     {
       var query = await repo.Filter(user => user.Email == userData.Email || user.Username == userData.Username);
@@ -61,19 +61,19 @@ public class DataUserController : ControllerBase
         Username = createdUser.Username,
         Email = createdUser.Email,
         Born = createdUser.Born,
-        PhotoID = createdUser.Photo
+        PhotoID = createdUser.Photo,
+        Authenticated = true
       };
 
-      var token = jwt.GetToken(tokendata);
-
-      return Ok(new { token });
+      var token = jwt.GenerateToken(tokendata);
+      return Ok(new Jwt{ Value = token });
     }
   
   [HttpPost("signin")]
   public async Task<ActionResult<UserToken>> SignIn(
     [FromBody] LoginDTO userData,
     [FromServices] IUserRepository repo,
-    [FromServices] IJwtService jwt,
+    [FromServices] IJWTService jwt,
     [FromServices] ISecurityService security
   )
   {
@@ -97,27 +97,25 @@ public class DataUserController : ControllerBase
       Authenticated = true
     };
     
-    var token = jwt.GetToken(userToken);
-
-    return Ok(new { token });
-
+    var token = jwt.GenerateToken(userToken);
+    return Ok(new Jwt{ Value = token });
   }
 
   [HttpPost("validate")]
   public async Task<ActionResult<UserToken>> ValidateJwt(
-    [FromServices] IJwtService jwtService,
+    [FromServices] IJWTService jwtService,
     [FromBody] Jwt jwt
   )
   {
     if (jwt.Value == "" || jwt.Value is null)
       return Ok (new UserToken { Authenticated = false });
-    
+
     try
     {
-      var result = jwtService.Validate<UserToken>(jwt.Value);
+      var result = jwtService.ValidateToken<UserToken>(jwt.Value).Data;
       return Ok(result);
     }
-    catch (Exception)
+    catch (Exception e)
     {
       return Ok(new UserToken { Authenticated = false });
     }

@@ -29,7 +29,7 @@ public class PostsController : ControllerBase
   public async Task<IEnumerable<PostDTO>> Get([FromServices] IPostRepository repo)
   {
     var response = await repo.GetOrderedPosts();
-    return response.Take(20);
+    return response;
   }
 
   [HttpPost]

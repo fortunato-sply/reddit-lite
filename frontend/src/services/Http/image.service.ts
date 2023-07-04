@@ -19,4 +19,14 @@ export class ImageService {
       { observe: 'response' }
     );
   }
+
+  addImage(form: FormData) {
+    console.log(form)
+
+    return this.http.post(
+      'http://localhost:5241/img',
+      form,
+      { observe: 'response' }
+    )
+  }
 }

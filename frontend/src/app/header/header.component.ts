@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -8,4 +9,11 @@ import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 })
 export class HeaderComponent {
   icon = faRightFromBracket;
+
+  constructor(private router: Router) { }
+
+  logoff() {
+    sessionStorage.setItem('jwt', '');
+    this.router.navigate(['/login']);
+  }
 }

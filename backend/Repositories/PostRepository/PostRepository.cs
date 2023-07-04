@@ -38,7 +38,7 @@ public class PostRepository : IPostRepository
     return await result.ToListAsync();
   }
 
-  private IQueryable<PostDTO> getCompletePosts()
+  private Task<List<PostDTO>> getCompletePosts()
   {
     var response =
       from p in context.Posts
@@ -62,13 +62,13 @@ public class PostRepository : IPostRepository
         ForumName = f.Title
       };
 
-    return response;
+    return response.ToListAsync();
   }
 
   public async Task<IEnumerable<PostDTO>> GetOrderedPosts()
   {
-    var response = getCompletePosts().OrderBy(p => p.CreatedAt);
-    return await response.ToListAsync();
+    var response = await getCompletePosts();
+    return response.OrderBy(p => p.CreatedAt);
   }
 
 
