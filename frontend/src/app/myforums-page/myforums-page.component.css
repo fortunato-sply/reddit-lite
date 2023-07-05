@@ -134,3 +134,28 @@ textarea {
   background-color: var(--orange);
   color: var(--white);
 }
+
+.no-forums {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+
+.thin {
+  font-weight: 200;
+}
+
+.bold {
+  background-color: var(--orange);
+  padding: 2px 8px;
+  color: var(--white);
+}
+
+.no-forums img {
+  width: 350px;
+  height: 350px;
+}

@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from '@angular/core';
-import { JWT, LoginDTO, SignUpDTO, UserToken } from "./user";
+import { JWT, LoginDTO, SignUpDTO, UserToken } from "../DTO/user";
 
 @Injectable({
   providedIn: 'root'

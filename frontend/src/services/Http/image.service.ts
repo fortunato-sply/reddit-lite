@@ -1,6 +1,5 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from '@angular/core';
-import { JWT, LoginDTO, SignUpDTO, UserToken } from "./user";
 
 @Injectable({
   providedIn: 'root'
@@ -8,13 +7,26 @@ import { JWT, LoginDTO, SignUpDTO, UserToken } from "./user";
 export class ImageService {
   constructor(private http: HttpClient) { }
 
-  updateUserImage(form: FormData) {
-    let jwt = sessionStorage.getItem('jwt') ?? '';
-
-    form.append('jwt', jwt)
+  updateUserImage(form: FormData, jwt: string) {
+    form.append('jwt', jwt);
     console.log(form.getAll);
     return this.http.post(
       'http://localhost:5241/img/user/update',
+      form,
+      { observe: 'response' }
+    );
+  }
+
+  updateForumImage(form: FormData, code: string | undefined) {
+    var id = '';
+    if(code != undefined) {
+      id = code
+    }
+    
+    form.append('id', id);
+    console.log(form.getAll);
+    return this.http.post(
+      'http://localhost:5241/img/forum/update',
       form,
       { observe: 'response' }
     );

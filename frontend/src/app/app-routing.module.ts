@@ -35,7 +35,7 @@ const routes: Routes = [
     component: MyforumsPageComponent
   },
   {
-    path: "forum",
+    path: "forum/:id",
     title: "Reddit Lite",
     component: ForumPageComponent
   }

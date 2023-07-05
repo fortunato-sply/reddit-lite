@@ -1,7 +1,7 @@
 import { Component, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { faArrowUp, faArrowDown, faStar } from '@fortawesome/free-solid-svg-icons';
-import { JWT, UserToken } from 'src/services/Http/user';
+import { JWT, UserToken } from 'src/services/DTO/user';
 import { UserService } from 'src/services/Http/user.service';
 
 @Component({

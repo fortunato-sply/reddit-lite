@@ -24,16 +24,18 @@ public class ForumController : ControllerBase
     return Ok(forums.First());
   }
 
-  [HttpGet("myforums/{userId}")]
+  [HttpGet("myforums")]
   public async Task<ActionResult<List<ForumDTO>>> GetUserForums(
-    int userId,
-    [FromServices] IForumRepository repo
+    [FromServices] IForumRepository repo,
+    [FromServices] IUserService userService
   )
   {
-    var forums = await repo.GetUserForums(userId);
-
+    var jwt = Request.Headers["jwt"];
+    Console.WriteLine(jwt);
+    UserToken user = await userService.ValidateUserToken(new Jwt { Value = jwt });
+    var forums = await repo.GetUserForums(user.Id);
     if(forums.Count < 1)
-      return StatusCode(404);
+      return Ok(new List<ForumDTO>(0));
 
     return Ok(forums);
   }
@@ -52,24 +54,44 @@ public class ForumController : ControllerBase
     return Ok(forums);
   }
 
-  [HttpPost("newforum")]
-  public async Task<IActionResult> Create(
-    [FromForm] CreateForumDTO model,
+  [HttpPost("create")]
+  public async Task<ActionResult<int>> Create(
+    [FromBody] CreateForumDTO data,
     [FromServices] IForumRepository repo,
-    [FromServices] IImageService imageService
+    [FromServices] IUserService userService
   )
   {
+    var query = await repo.Filter(f => f.Title == data.Title);
+    if (query.Count > 0)
+      return BadRequest("Fórum já existente. Utilize outro nome.");
+
+    UserToken user = await userService.ValidateUserToken(new Jwt { Value = data.JwtToken });
+
     Forum forum = new Forum
     {
-      Title = model.Title,
-      Description = model.Description,
-      CreatedAt = new DateTime()
+      Title = data.Title,
+      Description = data.Description,
+      CreatedAt = DateTime.Now,
+      Owner = user.Id
     };
     
-    var id = await imageService.GetLastImageId();
-    forum.Photo = id;
+    await repo.Add(forum);
 
-    return Ok();
+    var id = await repo.GetLastForumID();
+    return Ok(id);
   }
 
+  [HttpGet("{id}")]
+  public async Task<ActionResult<ForumDTO>> GetForumByID(
+    int id,
+    [FromServices] IForumRepository repo
+  )
+  {
+    var forum = await repo.GetForumDTOByID(id);
+
+    if (forum == null)
+      return BadRequest("fórum não encontrado");
+    
+    return Ok(forum);
+  }
 }

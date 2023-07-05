@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { JWT, LoginDTO } from 'src/services/Http/user';
+import { JWT, LoginDTO } from 'src/services/DTO/user';
 import { UserService } from 'src/services/Http/user.service';
 
 @Component({
@@ -17,6 +17,14 @@ export class LoginPageComponent {
   error: string = "";
 
   constructor(private router: Router, private service: UserService) { }
+
+  ngOnInit() {
+    var jwt = sessionStorage.getItem('jwt');
+    console.log(jwt == '');
+    if(jwt != '') {
+      this.router.navigate(['/feed']);
+    }
+  }
 
   onValueChanged() {
     this.emitError = false;
@@ -41,7 +49,6 @@ export class LoginPageComponent {
       .subscribe({
         next: (res: JWT) => {
           sessionStorage.setItem('jwt', res.value ?? "")
-          window.alert("jwt: " + res.value);
           this.router.navigate(['/feed'])
         },
         error: (err: HttpErrorResponse) => {

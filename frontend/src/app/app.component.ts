@@ -15,9 +15,10 @@ export class AppComponent {
   
   verifyLogin() {
     var token = sessionStorage.getItem('jwt');
-    
-    if(token == '' && location.pathname != '/newaccount') {
-      console.log('token é nulo')
+    console.log(token);
+
+
+    if((token == '' || token == null) && location.pathname != '/newaccount') {
       this.isLoggedIn = false;
       this.router.navigate(['/login']);
       return;

@@ -2,9 +2,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { ImageService } from 'src/services/Http/image.service';
-import { JWT, SignUpDTO, UserToken } from 'src/services/Http/user';
+import { JWT, SignUpDTO, UserToken } from 'src/services/DTO/user';
 import { UserService } from 'src/services/Http/user.service';
-import { UploadFileValues } from 'src/services/UploadFile';
+import { UploadFileValues } from 'src/services/DTO/UploadFile';
 
 
 @Component({
@@ -58,12 +58,13 @@ export class NewAccountPageComponent {
     this.userService.signUp(data)
       .subscribe({
         next: (res: JWT) => {
+          var jwtValue = res.value != null ? res.value : '';
           this.userService.validate(res)
             .subscribe((res: UserToken) => {
               console.log(res);
               if (this.imgForm) {
                 this.imageService
-                  .updateUserImage(this.imgForm)
+                  .updateUserImage(this.imgForm, jwtValue)
                   .subscribe((res) => { });
               }
             })

@@ -6,6 +6,7 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./forum-card.component.css']
 })
 export class ForumCardComponent {
-  
-  
+  @Input() id: string = '0';
+  @Input() title: string = '';
+  @Input() image: string = '';
 }

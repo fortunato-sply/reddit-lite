@@ -42,6 +42,7 @@ public class ImageController : ControllerBase
     )
     {
       var jwt = Request.Form["jwt"].ToString();
+      Console.WriteLine("jwt: " + jwt);
 
       UserToken user;
       try
@@ -75,6 +76,51 @@ public class ImageController : ControllerBase
       var userData = await userRepo.GetUserByUsername(user.Username); 
       userData.Photo = imgId;
       await userRepo.Update(userData);
+
+      return Ok();
+    }
+
+    [HttpPost("forum/update")]
+    public async Task<ActionResult> UpdateForumImage(
+      [FromServices] IImageService imageService,
+      [FromServices] IForumRepository forumRepo
+    )
+    {
+      var id = int.Parse(Request.Form["id"]); 
+      Console.WriteLine("forum id: " + id);
+
+      Forum forum;
+      try
+      {
+        forum = await forumRepo.GetForumByID(id);
+        Console.WriteLine("forum: " + forum);
+      }
+      catch (Exception ex)
+      {
+        Console.WriteLine("erro puxando o forum por id: " + ex.Message);
+        return BadRequest(ex.Message);
+      }
+
+
+      if (forum is null)
+        return NotFound();
+
+      var files = Request.Form.Files;
+
+      if (files is null || files.Count == 0)
+        return BadRequest();
+      
+      var file = Request.Form.Files[0];
+
+      if (file.Length < 1)
+        return BadRequest();
+      
+      await imageService.AddImage(file);
+      var imgId = await imageService.GetLastImageId();
+
+      
+      forum.Photo = imgId;
+      await forumRepo.Update(forum);
 
       return Ok();
     }

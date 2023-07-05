@@ -28,6 +28,7 @@ import { ModalModule } from './modal/modal.module';
 import { ForumPageComponent } from './forum-page/forum-page.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { UploaderComponent } from './uploader/uploader.component';
+import { ImgForumUploaderComponent } from './img-forum-uploader/img-forum-uploader.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { UploaderComponent } from './uploader/uploader.component';
     EditForumPageComponent,
     ForumPageComponent,
     UploaderComponent,
+    ImgForumUploaderComponent,
   ],
   imports: [
     BrowserModule,

@@ -4,10 +4,15 @@
     <h1>meus fóruns</h1>
   </div>
   <div class="forums-box">
-    <app-forum-card></app-forum-card>
-    <app-forum-card></app-forum-card>
-    <app-forum-card></app-forum-card>
-    <app-forum-card></app-forum-card>
+    <div class="no-forums" *ngIf="isEmpty">
+      <img src="../../assets/notfound.png" alt="">
+      <p><span class="thin">Você ainda não tem fóruns criados.</span><br><span class="bold">Comece criando um!</span></p>
+    </div>
+    <app-forum-card *ngFor="let forum of myforums" 
+      [id]="forum.id" 
+      [title]="forum.title" 
+      [image]="forum.photo">
+    </app-forum-card>
     
   </div>
   <div class="newforum-box">
@@ -16,11 +21,10 @@
       <div class="modal-container">
         <h3>novo fórum</h3>
         <div class="inputs">
-          <label for="photo">Selecione uma foto</label>
-          <input type="file" name="photo" id="photo" accept="">
-          <input type="text" name="name" id="" placeholder="Nome"/>
-          <textarea placeholder="Descrição"></textarea>
-          <button class="submit-btn">criar</button>
+          <app-forum-uploader (onUploadFinished)="handleFileUpload($event)"></app-forum-uploader>
+          <input type="text" name="name" id="" placeholder="Nome" [(ngModel)]="title"/>
+          <textarea placeholder="Descrição" [(ngModel)]="description"></textarea>
+          <button class="submit-btn" (click)="createForum()">criar</button>
         </div>
       </div>
     </app-modal>

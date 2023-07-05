@@ -2,11 +2,11 @@ import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-uploader',
-  templateUrl: './uploader.component.html',
-  styleUrls: ['./uploader.component.css'],
+  selector: 'app-forum-uploader',
+  templateUrl: './img-forum-uploader.component.html',
+  styleUrls: ['./img-forum-uploader.component.css'],
 })
-export class UploaderComponent implements OnInit {
+export class ImgForumUploaderComponent implements OnInit {
   @Output() public onUploadFinished = new EventEmitter<any>();
   @Input() public value: FormData = new FormData();
 
@@ -34,6 +34,6 @@ export class UploaderComponent implements OnInit {
   getImgSrc() {
     if (this.imgUrl !== '') return this.imgUrl;
 
-    return '../assets/camera.png';
+    return '../assets/plus.png';
   }
 }

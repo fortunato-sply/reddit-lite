@@ -1,10 +1,10 @@
 <div class="forum">
-  <a class="box-img" href="/forum">
+  <a class="box-img" [routerLink]="['/forum', id]">
     <div class="box-img">
-      <img src="../../assets/forumgatinho.jpg" alt="">
+      <img src="{{image}}" alt="">
     </div>
   </a>
   <div class="box-title">
-    <span>r/gatinhos trabalhadores</span>
+    <span>r/{{title}}</span>
   </div>
 </div>
