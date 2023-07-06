@@ -7,7 +7,7 @@ public partial class ImageDatum
 {
     public int Id { get; set; }
 
-    public byte[] Photo { get; set; } = null!;
+    public byte[] Photo { get; set; }
 
     public virtual ICollection<DataUser> DataUsers { get; set; } = new List<DataUser>();
 

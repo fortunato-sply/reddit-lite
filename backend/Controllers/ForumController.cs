@@ -91,7 +91,71 @@ public class ForumController : ControllerBase
 
     if (forum == null)
       return BadRequest("fórum não encontrado");
-    
+
     return Ok(forum);
+  }
+
+  [HttpPost("del/{id}")]
+  public async Task<ActionResult> DeleteForum(
+    string id,
+    [FromBody] Jwt jwt,
+    [FromServices] IForumRepository forumRepo,
+    [FromServices] IUserService userService
+  )
+  {
+    UserToken user = await userService.ValidateUserToken(jwt);
+
+    Forum forum = await forumRepo.GetForumByID(int.Parse(id));
+    
+    if (forum == null)
+      return BadRequest("o fórum não existe");
+     
+    if (user.Id != forum.Owner)
+      return BadRequest("o usuário não é proprietário do fórum em questão.");
+    
+    await forumRepo.Delete(forum);
+    return Ok();
+  }
+
+  [HttpPost("checkfollow/{id}")]
+  public async Task<ActionResult<bool>> IsUserFollowingForum(
+    string id,
+    [FromBody] Jwt jwt,
+    [FromServices] IForumRepository repo,
+    [FromServices] IUserService userService
+  )
+  {
+    UserToken user = await userService.ValidateUserToken(jwt);
+
+    var query = await repo.IsUserFollowingForum(user.Id, int.Parse(id));
+    return query;
+  }
+
+  [HttpPost("startfollow/{id}")]
+  public async Task<ActionResult> StartFollowingForum(
+    string id,
+    [FromBody] Jwt jwt,
+    [FromServices] IForumRepository repo,
+    [FromServices] IUserService userService
+  )
+  {
+    UserToken user = await userService.ValidateUserToken(jwt);
+
+    await repo.StartFollowingForum(user.Id, int.Parse(id));
+    return Ok();
+  }
+
+  [HttpPost("stopfollow/{id}")]
+  public async Task<ActionResult> StopFollowingForum(
+    string id,
+    [FromBody] Jwt jwt,
+    [FromServices] IForumRepository repo,
+    [FromServices] IUserService userService
+  )
+  {
+    UserToken user = await userService.ValidateUserToken(jwt);
+
+    await repo.StopFollowingForum(user.Id, int.Parse(id));
+    return Ok();
   }
 }

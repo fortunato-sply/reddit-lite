@@ -13,7 +13,7 @@ public partial class Like
 
     public int? FkPost { get; set; }
 
-    public virtual Post? FkPostNavigation { get; set; }
+    public virtual Post FkPostNavigation { get; set; }
 
-    public virtual DataUser? FkUserNavigation { get; set; }
+    public virtual DataUser FkUserNavigation { get; set; }
 }

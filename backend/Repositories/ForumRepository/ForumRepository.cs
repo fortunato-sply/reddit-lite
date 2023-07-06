@@ -116,4 +116,34 @@ public class ForumRepository : IForumRepository {
     var query = context.Forums.Where(f => f.Id == id);
     return await query.FirstOrDefaultAsync();
   }
+
+  public async Task<bool> IsUserFollowingForum(int userId, int forumId)
+  {
+    var query = await context.ForumXusers.Where(f => f.FkUser == userId & f.FkForum == forumId).ToListAsync();
+    Console.WriteLine("count query: " + query.Count);
+    if(query.Count > 0)
+      return true;
+    
+    return false;
+  }
+
+  public async Task StartFollowingForum(int userId, int forumId)
+  {
+    ForumXuser fxu = new ForumXuser
+    {
+      FkForum = forumId,
+      FkUser = userId
+    };
+
+    await context.ForumXusers.AddAsync(fxu);
+    await context.SaveChangesAsync();
+  }
+
+  public async Task StopFollowingForum(int userId, int forumId)
+  {
+    var query = await context.ForumXusers.Where(f => f.FkForum == forumId && f.FkUser == userId).FirstOrDefaultAsync();
+
+    context.ForumXusers.Remove(query);
+    await context.SaveChangesAsync();
+  }
 }

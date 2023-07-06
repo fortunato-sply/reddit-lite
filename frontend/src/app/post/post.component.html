@@ -20,7 +20,12 @@
       Lorem ipsum dolor sit amet. Non perspiciatis commodi 33 saepe error aut beatae nihil aut praesentium cupiditate ad odio dicta. Qui assumenda labore quo dolorem ducimus nam voluptatibus laboriosam ex neque beatae qui sunt esse vel nulla excepturi. Eos esse voluptatem ad nulla dolores eos consequuntur odio non velit repellendus. Est beatae itaque ut facere esse aut veritatis fugiat sit provident incidunt qui aspernatur odit?
     </div>
   </div>
-  <div class="comment-container">
+  <div class="btn">
+    <button class="comments-button" (click)="toggleComments()">
+      comentários
+    </button>
+  </div>
+  <div class="comment-container" [ngClass]="{ 'show': showComments }" *ngIf="showComments">
     <div class="afterline bigger"></div>
     <div class="leave-comment">
       <textarea id="" [(ngModel)]="newComment" onchange="changeComment()"></textarea>

@@ -7,13 +7,13 @@ public partial class DataUser
 {
     public int Id { get; set; }
 
-    public string Username { get; set; } = null!;
+    public string Username { get; set; }
 
-    public string Email { get; set; } = null!;
+    public string Email { get; set; }
 
-    public string Password { get; set; } = null!;
+    public string Password { get; set; }
 
-    public string? Salt { get; set; }
+    public string Salt { get; set; }
 
     public int? Photo { get; set; }
 
@@ -25,11 +25,13 @@ public partial class DataUser
 
     public virtual ICollection<ForumXuserRole> ForumXuserRoles { get; set; } = new List<ForumXuserRole>();
 
+    public virtual ICollection<ForumXuser> ForumXusers { get; set; } = new List<ForumXuser>();
+
     public virtual ICollection<Forum> Forums { get; set; } = new List<Forum>();
 
     public virtual ICollection<Like> Likes { get; set; } = new List<Like>();
 
-    public virtual ImageDatum? PhotoNavigation { get; set; }
+    public virtual ImageDatum PhotoNavigation { get; set; }
 
     public virtual ICollection<Post> Posts { get; set; } = new List<Post>();
 }

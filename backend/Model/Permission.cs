@@ -9,7 +9,7 @@ public partial class Permission
 
     public int? Tier { get; set; }
 
-    public string? Name { get; set; }
+    public string Name { get; set; }
 
     public virtual ICollection<Role> FkRoles { get; set; } = new List<Role>();
 }

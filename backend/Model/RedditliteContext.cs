@@ -78,15 +78,18 @@ public partial class RedditliteContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Email)
+                .IsRequired()
                 .HasMaxLength(60)
                 .IsUnicode(false);
             entity.Property(e => e.Password)
+                .IsRequired()
                 .HasMaxLength(60)
                 .IsUnicode(false);
             entity.Property(e => e.Salt)
-                .HasMaxLength(8)
+                .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.Username)
+                .IsRequired()
                 .HasMaxLength(60)
                 .IsUnicode(false);
 
@@ -123,9 +126,11 @@ public partial class RedditliteContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("createdAt");
             entity.Property(e => e.Description)
+                .IsRequired()
                 .HasMaxLength(200)
                 .IsUnicode(false);
             entity.Property(e => e.Title)
+                .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false);
 
@@ -140,18 +145,18 @@ public partial class RedditliteContext : DbContext
 
         modelBuilder.Entity<ForumXuser>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("ForumXUser");
+            entity.HasKey(e => e.Id).HasName("PK__ForumXUs__3214EC078E318DA9");
+
+            entity.ToTable("ForumXUser");
 
             entity.Property(e => e.FkForum).HasColumnName("FK_Forum");
             entity.Property(e => e.FkUser).HasColumnName("FK_User");
 
-            entity.HasOne(d => d.FkForumNavigation).WithMany()
+            entity.HasOne(d => d.FkForumNavigation).WithMany(p => p.ForumXusers)
                 .HasForeignKey(d => d.FkForum)
                 .HasConstraintName("FK__ForumXUse__FK_Fo__5DCAEF64");
 
-            entity.HasOne(d => d.FkUserNavigation).WithMany()
+            entity.HasOne(d => d.FkUserNavigation).WithMany(p => p.ForumXusers)
                 .HasForeignKey(d => d.FkUser)
                 .HasConstraintName("FK__ForumXUse__FK_Us__5CD6CB2B");
         });
@@ -187,6 +192,7 @@ public partial class RedditliteContext : DbContext
             entity.HasKey(e => e.Id).HasName("PK__ImageDat__3214EC27622628B9");
 
             entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.Photo).IsRequired();
         });
 
         modelBuilder.Entity<Like>(entity =>
@@ -214,6 +220,7 @@ public partial class RedditliteContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Nome)
+                .IsRequired()
                 .HasMaxLength(60)
                 .IsUnicode(false);
 

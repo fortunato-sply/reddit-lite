@@ -32,6 +32,11 @@ public class UserService : IUserService
     Console.WriteLine("autenticado");
     var user = await userRepository.GetUserByUsername(token.Username);
 
+    if (user is null)
+    {
+      throw new InvalidDataException();
+    }
+
     var userToken = new UserToken
     {
       Id = user.Id,

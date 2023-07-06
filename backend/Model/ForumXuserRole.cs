@@ -11,9 +11,9 @@ public partial class ForumXuserRole
 
     public int FkForum { get; set; }
 
-    public virtual Forum FkForumNavigation { get; set; } = null!;
+    public virtual Forum FkForumNavigation { get; set; }
 
-    public virtual Role FkRoleNavigation { get; set; } = null!;
+    public virtual Role FkRoleNavigation { get; set; }
 
-    public virtual DataUser FkUserNavigation { get; set; } = null!;
+    public virtual DataUser FkUserNavigation { get; set; }
 }

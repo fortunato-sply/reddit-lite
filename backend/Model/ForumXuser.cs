@@ -9,7 +9,9 @@ public partial class ForumXuser
 
     public int? FkForum { get; set; }
 
-    public virtual Forum? FkForumNavigation { get; set; }
+    public int Id { get; set; }
 
-    public virtual DataUser? FkUserNavigation { get; set; }
+    public virtual Forum FkForumNavigation { get; set; }
+
+    public virtual DataUser FkUserNavigation { get; set; }
 }

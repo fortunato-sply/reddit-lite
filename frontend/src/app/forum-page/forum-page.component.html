@@ -5,14 +5,71 @@
       <img src="http://localhost:5241/img/{{forum.photo}}" alt="" class="img">
       <div class="forum-info">
         <p class="name">r/{{forum.title}}</p>
-        <p class="description">{{forum.description}}</p>
+        <div class="description simplebar">
+          <p>{{forum.description}}
+          </p>
+        </div>
+        <div class="outline"></div>
+        <div class="more">
+          <div class="more-info">
+            <fa-icon [icon]="calendar"></fa-icon>
+            <p>{{formattedDate}}</p>
+          </div>
+          <div class="more-info">
+            <fa-icon [icon]="user"></fa-icon>
+            <p>/{{forum.owner}}</p>
+          </div>
+        </div>
+        <div *ngIf="isOwner" class="owner-options">
+          <button style="color: var(--orange)"><fa-icon [icon]="pencil"></fa-icon></button>
+          <button style="color: var(--red)" (click)="deleteForum()"><fa-icon [icon]="trash"></fa-icon></button>
+        </div>
       </div>
     </div>
-    <div class="mid-side">
-
+    <div class="mid-side simplebar">
+      <div class="posts">
+        <div class="new-post" *ngIf="isUserFollowing">
+          <h3>novo post</h3>
+          <textarea id="" onchange="changeComment()" class="simplebar"></textarea>
+          <button class="comment-btn" onclick="comment()">enviar</button>
+        </div>
+        <app-post></app-post>
+        <app-post></app-post>
+        <app-post></app-post>
+      </div>
     </div>
     <div class="right-side">
-
+      <div class="members simplebar">
+        <p>membros</p>
+        <div class="member">
+          <img src="http://localhost:5241/img/1" alt="">
+          <p>/superfollows</p>
+        </div>
+        <div class="member">
+          <img src="http://localhost:5241/img/1" alt="">
+          <p>/superfollows</p>
+        </div>
+        <div class="member">
+          <img src="http://localhost:5241/img/1" alt="">
+          <p>/superfollows</p>
+        </div>
+      </div>
+      <div class="follow-box">
+        <button 
+          *ngIf="!isUserFollowing && !isOwner" 
+          (click)="startFollowingForum()"
+        >
+          follow <fa-icon [icon]="heart"></fa-icon>
+        </button>
+        <button 
+          *ngIf="isUserFollowing && !isOwner" 
+          (click)="stopFollowingForum()"
+        >
+          unfollow <fa-icon [icon]="heartbroken"></fa-icon>
+        </button>
+        <p *ngIf="isOwner">Meu fórum</p>
+      </div>
     </div>
   </div>
 </section>
+<!-- fazer modal para editar o forum -->

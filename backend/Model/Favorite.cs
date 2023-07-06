@@ -11,7 +11,7 @@ public partial class Favorite
 
     public int? FkForum { get; set; }
 
-    public virtual Forum? FkForumNavigation { get; set; }
+    public virtual Forum FkForumNavigation { get; set; }
 
-    public virtual DataUser? FkUserNavigation { get; set; }
+    public virtual DataUser FkUserNavigation { get; set; }
 }
