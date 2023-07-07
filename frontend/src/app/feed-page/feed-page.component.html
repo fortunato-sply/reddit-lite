@@ -15,10 +15,14 @@
           <fa-icon [icon]="star"/>
         </p>
         <div class="favorites-box">
-          <app-fav-forum></app-fav-forum>
-          <app-fav-forum></app-fav-forum>
-          <app-fav-forum></app-fav-forum>
-          <app-fav-forum></app-fav-forum>
+          <div class="empty" *ngIf="emptyFavorites">
+            sem favoritos no momento!
+          </div>
+          <app-fav-forum *ngFor="let favorite of favorites"
+            [id]="favorite.id" 
+            [title]="favorite.title" 
+            [photo]="favorite.photo"
+          ></app-fav-forum>
         </div>
       </div>
     </div>

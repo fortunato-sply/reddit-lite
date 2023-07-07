@@ -1,10 +1,17 @@
 export interface CompletePost {
   idAuthor: number
+  photo: string
   authorName: string
   content: string
   createdAt: Date
-  likes: number
-  comments: JSON[]
+  likes: number,
+  forumName: string
+}
+
+export interface PostDTO {
+  content: string,
+  userId: number,
+  forumId: string
 }
 
 // public class CompletePost {

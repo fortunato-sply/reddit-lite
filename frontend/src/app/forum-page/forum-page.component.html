@@ -21,7 +21,7 @@
           </div>
         </div>
         <div *ngIf="isOwner" class="owner-options">
-          <button style="color: var(--orange)"><fa-icon [icon]="pencil"></fa-icon></button>
+          <button style="color: var(--orange)" (click)="modal.toggle()"><fa-icon [icon]="pencil"></fa-icon></button>
           <button style="color: var(--red)" (click)="deleteForum()"><fa-icon [icon]="trash"></fa-icon></button>
         </div>
       </div>
@@ -30,28 +30,23 @@
       <div class="posts">
         <div class="new-post" *ngIf="isUserFollowing">
           <h3>novo post</h3>
-          <textarea id="" onchange="changeComment()" class="simplebar"></textarea>
-          <button class="comment-btn" onclick="comment()">enviar</button>
+          <textarea id="" class="simplebar" [(ngModel)]="postContent"></textarea>
+          <button class="comment-btn" (click)="sendPost()">enviar</button>
         </div>
-        <app-post></app-post>
-        <app-post></app-post>
-        <app-post></app-post>
+        <app-post *ngFor="let post of posts"
+          [image]="post.photo"
+          [content]="post.content"
+          [forumName]="post.forumName"
+          [name]="post.authorName"
+        ></app-post>
       </div>
     </div>
     <div class="right-side">
       <div class="members simplebar">
         <p>membros</p>
-        <div class="member">
-          <img src="http://localhost:5241/img/1" alt="">
-          <p>/superfollows</p>
-        </div>
-        <div class="member">
-          <img src="http://localhost:5241/img/1" alt="">
-          <p>/superfollows</p>
-        </div>
-        <div class="member">
-          <img src="http://localhost:5241/img/1" alt="">
-          <p>/superfollows</p>
+        <div class="member" *ngFor="let member of members">
+          <img src="http://localhost:5241/img/{{member.photo}}" alt="">
+          <p>/{{member.username}}</p>
         </div>
       </div>
       <div class="follow-box">
@@ -68,8 +63,32 @@
           unfollow <fa-icon [icon]="heartbroken"></fa-icon>
         </button>
         <p *ngIf="isOwner">Meu fórum</p>
+        <button 
+          (click)="favoriteForum()"
+          *ngIf="!isFavorite" 
+          style="font-size: 1.25rem; padding: 16px;"
+        > 
+          favoritar <fa-icon [icon]="star"></fa-icon>
+        </button>
+        <button 
+          (click)="unfavoriteForum()"
+          *ngIf="isFavorite" 
+          style="font-size: 1.25rem; padding: 16px; width: 70%;"
+        >
+          desfavoritar <fa-icon [icon]="star"></fa-icon>
+        </button>
       </div>
     </div>
   </div>
 </section>
-<!-- fazer modal para editar o forum -->
+<app-modal #modal>
+  <div class="modal-container">
+    <h3>editar fórum</h3>
+    <div class="inputs">
+      <app-forum-uploader (onUploadFinished)="handleFileUpload($event)"></app-forum-uploader>
+      <input type="text" name="name" id="" placeholder="{{forum.title}}" [(ngModel)]="attTitle"/>
+      <textarea placeholder="{{forum.description}}" [(ngModel)]="attDescription"></textarea>
+      <button class="submit-btn" (click)="updateForum()">editar</button>
+    </div>
+  </div>
+</app-modal>

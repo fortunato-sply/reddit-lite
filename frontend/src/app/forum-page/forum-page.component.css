@@ -111,11 +111,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .follow-box p {
   color: var(--orange);
-  font-size: 2rem;
+  font-size: 1.75rem;
 }
 
 .follow-box button {
@@ -160,7 +162,7 @@
   width: 90%;
   align-items: center;
   padding: 6px;
-  justify-content: space-between;
+  gap: 12px;
 }
 
 .member p {
@@ -255,7 +257,7 @@
 }
 
 .description {
-  background-color: var(--orange);
+  background-color: var(--black);
   padding: 20px;
   display: flex;
   text-align: left;
@@ -264,6 +266,7 @@
   max-height: 20vh;
   width: 20vw;
   overflow-y: auto;
+  color: var(--thin-white);
 }
 
 .simplebar::-webkit-scrollbar {
@@ -279,4 +282,53 @@
 .simplebar::-webkit-scrollbar-thumb {
   background-color: var(--black); /* Cor do scroll */
   border-radius: 8px;
+}
+
+.modal-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30vw;
+  height: 43vh;
+}
+
+.modal-container h3 {
+  font-size: 1.5rem;
+}
+
+.inputs {
+  width: 80%;
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  font-size: 1.25rem;
+}
+
+.inputs input, .inputs textarea {
+  background-color: var(--thin-white);
+  resize: none;
+  border: 0;
+  padding: 12px;
+  width: 80%;
+  font-size: 0.875rem;
+}
+
+.inputs input:focus, .inputs textarea:focus {
+  outline: 0;
+}
+
+.submit-btn {
+  padding: 12px;
+  background-color: var(--green);
+  border: 0;
+  transition: .4s;
+  border-radius: 8px;
+  font-size:1rem;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  filter: brightness(1.1);
 }

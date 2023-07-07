@@ -12,3 +12,8 @@ export interface ForumDTO {
   createdAt: Date,
   owner: string
 }
+
+export interface UpdateForumDTO {
+  title: string,
+  description: string
+}

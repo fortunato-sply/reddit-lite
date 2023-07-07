@@ -21,6 +21,18 @@ public class ForumRepository : IForumRepository {
     await context.SaveChangesAsync();
   }
 
+  public async Task AddRelationship(int forumId, int userId)
+  {
+    ForumXuser fxu = new ForumXuser
+    {
+      FkForum = forumId,
+      FkUser = userId
+    };
+
+    await context.ForumXusers.AddAsync(fxu);
+    await context.SaveChangesAsync();
+  }
+
   public async Task Delete(Forum forum)
   {
     context.Forums.Remove(forum);
@@ -145,5 +157,52 @@ public class ForumRepository : IForumRepository {
 
     context.ForumXusers.Remove(query);
     await context.SaveChangesAsync();
+  }
+
+  public async Task<bool> IsForumFavorite(int userId, int forumId)
+  {
+    var query = await context.Favorites.Where(f => f.FkForum == forumId && f.FkUser == userId).ToListAsync();
+    if(query.Count > 0)
+      return true;
+    
+    return false;
+  }
+
+  public async Task FavoriteForum(int userId, int forumId)
+  {
+    Favorite fav = new Favorite
+    {
+      FkForum = forumId,
+      FkUser = userId
+    };
+
+    await context.Favorites.AddAsync(fav);
+    await context.SaveChangesAsync();
+  }
+
+  public async Task UnfavoriteForum(int userId, int forumId)
+  {
+    var query = await context.Favorites.Where(f => f.FkForum == forumId && f.FkUser == userId).FirstOrDefaultAsync();
+
+    context.Favorites.Remove(query);
+    await context.SaveChangesAsync();
+  }
+
+  public async Task<List<UserMemberDTO>> GetMembers(int forumId)
+  {
+    var query = 
+      from fxu in context.ForumXusers
+      join f in context.Forums
+        on fxu.FkForum equals f.Id
+      join u in context.DataUsers
+        on fxu.FkUser equals u.Id
+      where f.Id == forumId
+      select new UserMemberDTO
+      {
+        Username = u.Username,
+        Photo = u.Photo
+      };
+    
+    return await query.ToListAsync();
   }
 }

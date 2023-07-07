@@ -108,6 +108,7 @@ public partial class RedditliteContext : DbContext
 
             entity.HasOne(d => d.FkForumNavigation).WithMany(p => p.Favorites)
                 .HasForeignKey(d => d.FkForum)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__Favorites__FK_Fo__70DDC3D8");
 
             entity.HasOne(d => d.FkUserNavigation).WithMany(p => p.Favorites)

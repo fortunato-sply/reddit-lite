@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -9,6 +9,12 @@ import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 export class PostComponent {
   arrowUp = faArrowUp;
   arrowDown = faArrowDown;
+
+  @Input() image = '';
+  @Input() name = '';
+  @Input() forumName = '';
+  @Input() content = '';
+  @Input() likes = 0;
 
   showComments: boolean = false;
 

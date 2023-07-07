@@ -8,36 +8,23 @@ namespace backend.Controllers;
 
 [ApiController]
 [EnableCors("MainPolicy")]
-[Route("")]
+[Route("post")]
 public class PostsController : ControllerBase
 {
-  [HttpGet("post/{id}")]
-  public async Task<IActionResult> getPostById(
-    int id,
-    [FromServices] IPostRepository repo
-  )
-  {
-    PostDTO? post = await repo.GetPostById(id);
-
-    if (post == null)
-      return StatusCode(404);
-
-    return Ok(post);
-  }
-
-  [HttpGet("")]
-  public async Task<IEnumerable<PostDTO>> Get([FromServices] IPostRepository repo)
+  [HttpGet("get/feedposts")]
+  public async Task<List<PostDTO>> Get([FromServices] IPostRepository repo)
   {
     var response = await repo.GetOrderedPosts();
     return response;
   }
 
-  [HttpPost]
+  [HttpPost("send")]
   public async Task<ActionResult> Post(
-    [FromServices] IPostRepository repo,
-    [FromBody] HttpPostDTO postDTO
+    [FromBody] HttpPostDTO postDTO,
+    [FromServices] IPostRepository repo
   )
   {
+    Console.WriteLine("chamou a req");
     Post newPost = new Post
     {
       Content = postDTO.Content,
@@ -45,8 +32,18 @@ public class PostsController : ControllerBase
       FkUser = postDTO.UserId,
       FkForum = postDTO.ForumId
     };
-
-    await repo.Add(newPost);
+    
+    await repo.Add(newPost);  
     return Ok();
+  }
+
+  [HttpGet("get/forumposts/{id}")]
+  public async Task<ActionResult<List<PostDTO>>> GetForumPosts(
+    string id,
+    [FromServices] IPostRepository repo
+  )
+  {
+    var query = await repo.GetForumPosts(int.Parse(id));
+    return query;
   }
 }

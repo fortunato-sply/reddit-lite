@@ -31,4 +31,9 @@ interface JWT {
   value: string | null;
 }
 
-export { UserData, LoginDTO, JWT, SignUpDTO, UserToken };
+interface UserMemberDTO {
+  username: string;
+  photo: string;
+}
+
+export { UserData, LoginDTO, JWT, SignUpDTO, UserToken, UserMemberDTO };

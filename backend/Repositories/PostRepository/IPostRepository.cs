@@ -4,6 +4,6 @@ using Model;
 
 public interface IPostRepository : IRepository<Post> 
 {
-  Task<IEnumerable<PostDTO>> GetOrderedPosts();
-  Task<PostDTO?> GetPostById(int id);
+  Task<List<PostDTO>> GetOrderedPosts();
+  Task<List<PostDTO>> GetForumPosts(int forumId);
 }

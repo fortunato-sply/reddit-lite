@@ -78,6 +78,8 @@ public class ForumController : ControllerBase
     await repo.Add(forum);
 
     var id = await repo.GetLastForumID();
+    await repo.AddRelationship(id, user.Id);
+
     return Ok(id);
   }
 
@@ -154,8 +156,78 @@ public class ForumController : ControllerBase
   )
   {
     UserToken user = await userService.ValidateUserToken(jwt);
-
+ 
     await repo.StopFollowingForum(user.Id, int.Parse(id));
     return Ok();
+  }
+
+  [HttpPost("checkfavorite/{id}")]
+  public async Task<ActionResult<bool>> IsForumFavorite(
+    string id,
+    [FromBody] Jwt jwt,
+    [FromServices] IForumRepository repo,
+    [FromServices] IUserService userService
+  )
+  {
+    UserToken user = await userService.ValidateUserToken(jwt);
+
+    var response = await repo.IsForumFavorite(user.Id, int.Parse(id));
+    return response;
+  }
+
+  [HttpPost("favorite/{id}")]
+  public async Task<ActionResult> FavoriteForum(
+    string id,
+    [FromBody] Jwt jwt,
+    [FromServices] IForumRepository repo,
+    [FromServices] IUserService userService
+  )
+  {
+    UserToken user = await userService.ValidateUserToken(jwt);
+
+    await repo.FavoriteForum(user.Id, int.Parse(id));
+    return Ok();
+  }
+
+  [HttpPost("unfavorite/{id}")]
+  public async Task<ActionResult> UnfavoriteForum(
+    string id,
+    [FromBody] Jwt jwt,
+    [FromServices] IForumRepository repo,
+    [FromServices] IUserService userService
+  )
+  {
+    UserToken user = await userService.ValidateUserToken(jwt);
+
+    await repo.UnfavoriteForum(user.Id, int.Parse(id));
+    return Ok();
+  }
+
+  [HttpPost("update/{id}")]
+  public async Task<ActionResult> UpdateForum(
+    string id,
+    [FromBody] UpdateForumDTO data,
+    [FromServices] IForumRepository repo
+  )
+  {
+    var forum = await repo.GetForumByID(int.Parse(id));
+
+    if(forum is null)
+      return NotFound();
+
+    forum.Title = data.Title;
+    forum.Description = data.Description;
+
+    await repo.Update(forum);
+    return Ok();
+  }
+
+  [HttpGet("members/{id}")]
+  public async Task<ActionResult<List<UserMemberDTO>>> GetForumMembers(
+    string id,
+    [FromServices] IForumRepository repo
+  )
+  {
+    return await repo.GetMembers(int.Parse(id));
   }
 }

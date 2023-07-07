@@ -53,48 +53,44 @@ public class PostRepository : IPostRepository
       select new PostDTO
       {
         IdAuthor = u.Id,
+        Photo = u.Photo,
         AuthorName = u.Username,
         Content = p.Content,
         CreatedAt = p.CreatedAt,
-        Comments = commentsGroup.ToList(), // puxar os comentários e convertê-los em uma lista
-        Likes = likesGroup.Sum(l => l.Value),
-        IdForum = f.Id,
-        ForumName = f.Title
+        Likes = likesGroup.Sum(l => l.Value)
       };
 
     return response.ToListAsync();
   }
 
-  public async Task<IEnumerable<PostDTO>> GetOrderedPosts()
+  public async Task<List<PostDTO>> GetOrderedPosts()
   {
     var response = await getCompletePosts();
-    return response.OrderBy(p => p.CreatedAt);
+    return response.OrderBy(p => p.CreatedAt).ToList();
   }
 
-
-  public async Task<PostDTO?> GetPostById(int id)
+  public async Task<List<PostDTO>> GetForumPosts(int forumId)
   {
-    var postResponse = 
+    var query = 
       from p in context.Posts
-      where p.Id == id
-      join u in context.DataUsers
-        on p.FkUser equals u.Id
-      join c in context.Comments
-        on p.Id equals c.FkPost into commentsGroup
       join f in context.Forums
         on p.FkForum equals f.Id
-      select new PostDTO                 
+      join u in context.DataUsers
+        on p.FkUser equals u.Id
+      join l in context.Likes
+        on p.Id equals l.FkPost into likesGroup
+      where f.Id == forumId
+      select new PostDTO
       {
-        IdPost = p.Id,
-        IdAuthor = u.Id,
         AuthorName = u.Username,
+        Photo = u.Photo,
+        ForumName = f.Title,
         Content = p.Content,
         CreatedAt = p.CreatedAt,
-        Comments = commentsGroup.ToList(), // puxar os comentários e convertê-los em uma lista
-        IdForum = f.Id,
-        ForumName = f.Title
+        IdAuthor = u.Id,
+        Likes = likesGroup.Sum(l => l.Value) 
       };
 
-    return await postResponse.FirstOrDefaultAsync();
+      return await query.OrderByDescending(p => p.CreatedAt).ToListAsync();
   }
 }

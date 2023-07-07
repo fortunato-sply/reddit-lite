@@ -1,9 +1,9 @@
 <div class="card">
   <div class="user-info">
-    <img src="../../assets/profilephoto.jpg" alt="">
+    <img src="http://localhost:5241/img/{{image}}" alt="">
     <div class="text-info">
-      <span class="user-name">Lucas Fortunato</span>
-      <span class="forum-name">r/aqui</span>
+      <span class="user-name">{{name}}</span>
+      <span class="forum-name">r/{{forumName}}</span>
     </div>
   </div>
   <div class="content-container">
@@ -11,13 +11,13 @@
         <button class="arrow-btn up-animation" onClick="changeLikes()">
           <fa-icon class="ico green" [icon]="arrowUp"></fa-icon>
         </button>
-        <p [(ngModel)]="Likes" class="like-count">0</p>
+        <p [(ngModel)]="Likes" class="like-count">{{likes}}</p>
         <button class="arrow-btn down-animation" onclick="changeLikes()">
           <fa-icon class="ico red" [icon]="arrowDown"></fa-icon>
         </button>
     </div>
     <div class="content">
-      Lorem ipsum dolor sit amet. Non perspiciatis commodi 33 saepe error aut beatae nihil aut praesentium cupiditate ad odio dicta. Qui assumenda labore quo dolorem ducimus nam voluptatibus laboriosam ex neque beatae qui sunt esse vel nulla excepturi. Eos esse voluptatem ad nulla dolores eos consequuntur odio non velit repellendus. Est beatae itaque ut facere esse aut veritatis fugiat sit provident incidunt qui aspernatur odit?
+      {{content}}
     </div>
   </div>
   <div class="btn">

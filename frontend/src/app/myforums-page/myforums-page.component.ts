@@ -76,6 +76,4 @@ export class MyforumsPageComponent {
         }
       })
   }
-  //TODO
-  //enviar a foto pelo imgForm, receber no back igual a de user
 }
