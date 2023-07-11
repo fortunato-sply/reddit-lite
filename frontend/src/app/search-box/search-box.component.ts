@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { faCircleRight } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-search-box',
@@ -6,6 +7,12 @@ import { faCircleRight } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./search-box.component.css']
 })
 export class SearchBoxComponent {
-  value=""
+  constructor(private router: Router) { }
+
   circleRight = faCircleRight;
+  value: string = "";
+
+  search() {
+    this.router.navigateByUrl(`search/${this.value}`);
+  }
 }

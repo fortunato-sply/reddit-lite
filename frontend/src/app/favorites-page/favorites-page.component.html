@@ -1,13 +1,15 @@
 <app-header></app-header>
 <section class="favorites-container">
   <div class="myfavorites">
-    <h1>meus favoritos</h1>
+    <h1>fóruns</h1>
   </div>
   <div class="forums-box">
-    <app-forum-card></app-forum-card>
-    <app-forum-card></app-forum-card>
-    <app-forum-card></app-forum-card>
-    <app-forum-card></app-forum-card>
+    <app-forum-card 
+      *ngFor="let forum of forums"
+      [image]="forum.photo"
+      [id]="forum.id"
+      [title]="forum.title"
+    ></app-forum-card>
     
   </div>
 </section>

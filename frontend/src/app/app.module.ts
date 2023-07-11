@@ -29,6 +29,7 @@ import { ForumPageComponent } from './forum-page/forum-page.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { UploaderComponent } from './uploader/uploader.component';
 import { ImgForumUploaderComponent } from './img-forum-uploader/img-forum-uploader.component';
+import { SearchForumPageComponent } from './search-forum-page/search-forum-page.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { ImgForumUploaderComponent } from './img-forum-uploader/img-forum-upload
     ForumPageComponent,
     UploaderComponent,
     ImgForumUploaderComponent,
+    SearchForumPageComponent,
   ],
   imports: [
     BrowserModule,

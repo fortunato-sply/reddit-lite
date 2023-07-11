@@ -7,6 +7,7 @@ import { FavoritesPageComponent } from './favorites-page/favorites-page.componen
 import { MyforumsPageComponent } from './myforums-page/myforums-page.component';
 import { EditForumPageComponent } from './edit-forum-page/edit-forum-page.component';
 import { ForumPageComponent } from './forum-page/forum-page.component';
+import { SearchForumPageComponent } from './search-forum-page/search-forum-page.component';
 
 const routes: Routes = [
   {
@@ -38,6 +39,11 @@ const routes: Routes = [
     path: "forum/:id",
     title: "Reddit Lite",
     component: ForumPageComponent
+  },
+  {
+    path: "search/:name",
+    title: "Procurar fórum",
+    component: SearchForumPageComponent
   }
 ];
 

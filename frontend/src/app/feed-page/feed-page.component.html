@@ -27,7 +27,14 @@
       </div>
     </div>
     <div class="card-side">
-      <app-post></app-post>
+      <app-post 
+        *ngFor="let post of posts"
+        [forumName]="post.forumName"
+        [image]="post.photo"
+        [likes]="post.likes"
+        [content]="post.content"
+        [name]="post.authorName"
+      ></app-post>
     </div>
   </div>
 </section>

@@ -44,20 +44,17 @@ public class PostRepository : IPostRepository
       from p in context.Posts
       join u in context.DataUsers
         on p.FkUser equals u.Id
-      join c in context.Comments
-        on p.Id equals c.FkPost into commentsGroup
       join f in context.Forums
         on p.FkForum equals f.Id
-      join l in context.Likes
-        on p.Id equals l.FkPost into likesGroup
       select new PostDTO
       {
+        ForumName = f.Title,
         IdAuthor = u.Id,
         Photo = u.Photo,
         AuthorName = u.Username,
         Content = p.Content,
         CreatedAt = p.CreatedAt,
-        Likes = likesGroup.Sum(l => l.Value)
+        Likes = 0
       };
 
     return response.ToListAsync();
@@ -66,7 +63,7 @@ public class PostRepository : IPostRepository
   public async Task<List<PostDTO>> GetOrderedPosts()
   {
     var response = await getCompletePosts();
-    return response.OrderBy(p => p.CreatedAt).ToList();
+    return response.OrderByDescending(p => p.CreatedAt).Take(10).ToList();
   }
 
   public async Task<List<PostDTO>> GetForumPosts(int forumId)

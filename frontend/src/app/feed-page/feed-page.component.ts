@@ -1,9 +1,11 @@
-import { Component, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { faArrowUp, faArrowDown, faStar } from '@fortawesome/free-solid-svg-icons';
 import { ForumDTO } from 'src/services/DTO/Forum';
+import { CompletePost } from 'src/services/DTO/Post';
 import { JWT, UserToken } from 'src/services/DTO/user';
 import { ForumService } from 'src/services/Http/forum.service';
+import { PostService } from 'src/services/Http/post.service';
 import { UserService } from 'src/services/Http/user.service';
 
 @Component({
@@ -15,7 +17,9 @@ export class FeedPageComponent {
   constructor(
     private router: Router, 
     private userService: UserService,
-    private forumService: ForumService
+    private forumService: ForumService,
+    private postService: PostService,
+    private changeDetection: ChangeDetectorRef
   ) { }
 
   jwt: JWT = { value: '' };
@@ -26,11 +30,19 @@ export class FeedPageComponent {
   favorites: ForumDTO[] = [];
   emptyFavorites: boolean = true;
   
+  posts: CompletePost[] = [];
+
   verifyFavorites() {
     this.emptyFavorites = this.favorites.length < 1;
   }
 
   ngOnInit() {
+    this.postService.getFeedPosts()
+      .subscribe((res: CompletePost[]) => {
+        this.posts = res;
+        this.changeDetection.detectChanges();
+      })
+
     this.jwt.value = sessionStorage.getItem('jwt');
     console.log("jwt no feed: ", this.jwt.value);
 
@@ -44,6 +56,8 @@ export class FeedPageComponent {
           this.favorites = res;
           this.verifyFavorites();
         })
+
+      
     })
   }
 

@@ -48,7 +48,7 @@ export class MyforumsPageComponent {
             description: forum.description,
             createdAt: forum.createdAt,
             owner: forum.owner,
-            photo: "http://localhost:5241/img/" + forum.photo
+            photo: forum.photo
           })
         });
 

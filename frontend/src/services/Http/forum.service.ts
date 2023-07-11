@@ -9,8 +9,16 @@ import { JWT, UserMemberDTO } from "../DTO/user";
 export class ForumService {
   constructor(private http: HttpClient) { }
 
+  searchForum(name: string) {
+    return this.http.get<ForumDTO[]>(`http://localhost:5241/forum/search/${name}`);
+  }
+
   createForum(data: CreateForumDTO) {
     return this.http.post('http://localhost:5241/forum/create', data, { observe: 'response' });
+  }
+
+  getForums() {
+    return this.http.get<ForumDTO[]>('http://localhost:5241/forum/getforums');
   }
 
   getUserForums(jwt: string) {

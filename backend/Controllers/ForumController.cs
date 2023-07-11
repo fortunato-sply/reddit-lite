@@ -11,7 +11,7 @@ namespace backend.Controllers;
 public class ForumController : ControllerBase
 {
   [HttpGet("search/{name}")]
-  public async Task<ActionResult<Forum>> SearchForumByName(
+  public async Task<ActionResult<List<Forum>>> SearchForumByName(
     string name,
     [FromServices] IForumRepository repo
   )
@@ -21,7 +21,16 @@ public class ForumController : ControllerBase
     if (forums.Count < 1)
       return BadRequest();
     
-    return Ok(forums.First());
+    return Ok(forums.ToList());
+  }
+
+  [HttpGet("getforums")]
+  public async Task<ActionResult<List<ForumDTO>>> GetForums(
+    [FromServices] IForumRepository repo
+  )
+  {
+    var forums = await repo.GetForums();
+    return Ok(forums);
   }
 
   [HttpGet("myforums")]

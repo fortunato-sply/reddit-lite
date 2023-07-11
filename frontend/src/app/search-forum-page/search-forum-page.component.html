@@ -1,0 +1,24 @@
+<app-header></app-header>
+<section class="container">
+  <div class="text">
+    <p>Exibindo resultados para:</p> {{search}}
+  </div>
+  <div class="forums-box">
+    <div class="not-found" *ngIf="forumsIsEmpty">
+      <h2>Não encontrado</h2>
+    </div>
+    <div class="forum" 
+      *ngFor="let forum of forums"
+      [routerLink]="['/forum', forum.id]"
+    >
+      <div class="img">
+        <img src="http://localhost:5241/img/{{forum.photo}}" alt="">
+      </div>
+      <div class="sep"></div>
+      <div class="right-side">
+        <h2>r/{{forum.title}}</h2>
+        <p>{{forum.description}}</p>
+      </div>
+    </div>
+  </div>
+</section>
