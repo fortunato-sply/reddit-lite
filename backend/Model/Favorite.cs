@@ -5,11 +5,11 @@ namespace backend.Model;
 
 public partial class Favorite
 {
-    public int Id { get; set; }
-
     public int? FkUser { get; set; }
 
     public int? FkForum { get; set; }
+
+    public int Id { get; set; }
 
     public virtual Forum FkForumNavigation { get; set; }
 

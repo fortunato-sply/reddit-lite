@@ -39,15 +39,17 @@ public partial class RedditliteContext : DbContext
 
     public virtual DbSet<Role> Roles { get; set; }
 
+    public virtual DbSet<RoleXpermission> RoleXpermissions { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=CT-C-0013D\\SQLEXPRESS;Initial Catalog=REDDITLITE;Integrated Security=True;TrustServerCertificate=true");
+        => optionsBuilder.UseSqlServer("Data Source=CT-C-001YU\\SQLEXPRESS;Initial Catalog=REDDITLITE;Integrated Security=True;TrustServerCertificate=true");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Comment>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Comment__3214EC27DC7C5BF1");
+            entity.HasKey(e => e.Id).HasName("PK__Comment__3214EC270C6FEFA0");
 
             entity.ToTable("Comment");
 
@@ -63,20 +65,21 @@ public partial class RedditliteContext : DbContext
 
             entity.HasOne(d => d.FkPostNavigation).WithMany(p => p.Comments)
                 .HasForeignKey(d => d.FkPost)
-                .HasConstraintName("FK__Comment__FK_Post__49C3F6B7");
+                .HasConstraintName("FK__Comment__FK_Post__4E88ABD4");
 
             entity.HasOne(d => d.FkUserNavigation).WithMany(p => p.Comments)
                 .HasForeignKey(d => d.FkUser)
-                .HasConstraintName("FK__Comment__FK_User__4AB81AF0");
+                .HasConstraintName("FK__Comment__FK_User__4F7CD00D");
         });
 
         modelBuilder.Entity<DataUser>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__DataUser__3214EC2735919154");
+            entity.HasKey(e => e.Id).HasName("PK__DataUser__3214EC2731D4AAB2");
 
             entity.ToTable("DataUser");
 
             entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.Born).HasColumnType("date");
             entity.Property(e => e.Email)
                 .IsRequired()
                 .HasMaxLength(60)
@@ -85,9 +88,7 @@ public partial class RedditliteContext : DbContext
                 .IsRequired()
                 .HasMaxLength(60)
                 .IsUnicode(false);
-            entity.Property(e => e.Salt)
-                .HasMaxLength(50)
-                .IsUnicode(false);
+            entity.Property(e => e.Salt).IsUnicode(false);
             entity.Property(e => e.Username)
                 .IsRequired()
                 .HasMaxLength(60)
@@ -95,12 +96,12 @@ public partial class RedditliteContext : DbContext
 
             entity.HasOne(d => d.PhotoNavigation).WithMany(p => p.DataUsers)
                 .HasForeignKey(d => d.Photo)
-                .HasConstraintName("FK__DataUser__Photo__3B75D760");
+                .HasConstraintName("FK__DataUser__Photo__3C69FB99");
         });
 
         modelBuilder.Entity<Favorite>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Favorite__3214EC27195046DE");
+            entity.HasKey(e => e.Id).HasName("PK__Favorite__3214EC2705B377BC");
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.FkForum).HasColumnName("FK_Forum");
@@ -108,17 +109,16 @@ public partial class RedditliteContext : DbContext
 
             entity.HasOne(d => d.FkForumNavigation).WithMany(p => p.Favorites)
                 .HasForeignKey(d => d.FkForum)
-                .OnDelete(DeleteBehavior.Cascade)
-                .HasConstraintName("FK__Favorites__FK_Fo__70DDC3D8");
+                .HasConstraintName("FK__Favorites__FK_Fo__534D60F1");
 
             entity.HasOne(d => d.FkUserNavigation).WithMany(p => p.Favorites)
                 .HasForeignKey(d => d.FkUser)
-                .HasConstraintName("FK__Favorites__FK_Us__6FE99F9F");
+                .HasConstraintName("FK__Favorites__FK_Us__52593CB8");
         });
 
         modelBuilder.Entity<Forum>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Forum__3214EC2759DE4420");
+            entity.HasKey(e => e.Id).HasName("PK__Forum__3214EC27F31B7C97");
 
             entity.ToTable("Forum");
 
@@ -137,60 +137,59 @@ public partial class RedditliteContext : DbContext
 
             entity.HasOne(d => d.OwnerNavigation).WithMany(p => p.Forums)
                 .HasForeignKey(d => d.Owner)
-                .HasConstraintName("FK__Forum__Owner__3F466844");
+                .HasConstraintName("FK__Forum__Owner__403A8C7D");
 
             entity.HasOne(d => d.PhotoNavigation).WithMany(p => p.Forums)
                 .HasForeignKey(d => d.Photo)
-                .HasConstraintName("FK__Forum__Photo__3E52440B");
+                .HasConstraintName("FK__Forum__Photo__3F466844");
         });
 
         modelBuilder.Entity<ForumXuser>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__ForumXUs__3214EC078E318DA9");
+            entity.HasKey(e => e.Id).HasName("PK__ForumXUs__3214EC27B30E9E81");
 
             entity.ToTable("ForumXUser");
 
+            entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.FkForum).HasColumnName("FK_Forum");
             entity.Property(e => e.FkUser).HasColumnName("FK_User");
 
             entity.HasOne(d => d.FkForumNavigation).WithMany(p => p.ForumXusers)
                 .HasForeignKey(d => d.FkForum)
-                .HasConstraintName("FK__ForumXUse__FK_Fo__5DCAEF64");
+                .HasConstraintName("FK__ForumXUse__FK_Fo__440B1D61");
 
             entity.HasOne(d => d.FkUserNavigation).WithMany(p => p.ForumXusers)
                 .HasForeignKey(d => d.FkUser)
-                .HasConstraintName("FK__ForumXUse__FK_Us__5CD6CB2B");
+                .HasConstraintName("FK__ForumXUse__FK_Us__4316F928");
         });
 
         modelBuilder.Entity<ForumXuserRole>(entity =>
         {
-            entity.HasKey(e => new { e.FkUser, e.FkRole, e.FkForum }).HasName("PK__ForumXUs__91E03C271FDBEBB0");
+            entity.HasKey(e => e.Id).HasName("PK__ForumXUs__3214EC2761116FC6");
 
             entity.ToTable("ForumXUserRole");
 
-            entity.Property(e => e.FkUser).HasColumnName("FK_User");
-            entity.Property(e => e.FkRole).HasColumnName("FK_Role");
+            entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.FkForum).HasColumnName("FK_Forum");
+            entity.Property(e => e.FkRole).HasColumnName("FK_Role");
+            entity.Property(e => e.FkUser).HasColumnName("FK_User");
 
             entity.HasOne(d => d.FkForumNavigation).WithMany(p => p.ForumXuserRoles)
                 .HasForeignKey(d => d.FkForum)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__ForumXUse__FK_Fo__5AEE82B9");
+                .HasConstraintName("FK__ForumXUse__FK_Fo__5FB337D6");
 
             entity.HasOne(d => d.FkRoleNavigation).WithMany(p => p.ForumXuserRoles)
                 .HasForeignKey(d => d.FkRole)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__ForumXUse__FK_Ro__59FA5E80");
+                .HasConstraintName("FK__ForumXUse__FK_Ro__5EBF139D");
 
             entity.HasOne(d => d.FkUserNavigation).WithMany(p => p.ForumXuserRoles)
                 .HasForeignKey(d => d.FkUser)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__ForumXUse__FK_Us__59063A47");
+                .HasConstraintName("FK__ForumXUse__FK_Us__5DCAEF64");
         });
 
         modelBuilder.Entity<ImageDatum>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__ImageDat__3214EC27622628B9");
+            entity.HasKey(e => e.Id).HasName("PK__ImageDat__3214EC27D00A4CA3");
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Photo).IsRequired();
@@ -198,7 +197,7 @@ public partial class RedditliteContext : DbContext
 
         modelBuilder.Entity<Like>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Likes__3214EC27442E5656");
+            entity.HasKey(e => e.Id).HasName("PK__Likes__3214EC273C714542");
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.FkPost).HasColumnName("Fk_Post");
@@ -206,16 +205,16 @@ public partial class RedditliteContext : DbContext
 
             entity.HasOne(d => d.FkPostNavigation).WithMany(p => p.Likes)
                 .HasForeignKey(d => d.FkPost)
-                .HasConstraintName("FK__Likes__Fk_Post__46E78A0C");
+                .HasConstraintName("FK__Likes__Fk_Post__4BAC3F29");
 
             entity.HasOne(d => d.FkUserNavigation).WithMany(p => p.Likes)
                 .HasForeignKey(d => d.FkUser)
-                .HasConstraintName("FK__Likes__FK_User__45F365D3");
+                .HasConstraintName("FK__Likes__FK_User__4AB81AF0");
         });
 
         modelBuilder.Entity<Location>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Location__3214EC270829D170");
+            entity.HasKey(e => e.Id).HasName("PK__Location__3214EC27662C57F0");
 
             entity.ToTable("Location");
 
@@ -227,12 +226,12 @@ public partial class RedditliteContext : DbContext
 
             entity.HasOne(d => d.PhotoNavigation).WithMany(p => p.Locations)
                 .HasForeignKey(d => d.Photo)
-                .HasConstraintName("FK__Location__Photo__38996AB5");
+                .HasConstraintName("FK__Location__Photo__398D8EEE");
         });
 
         modelBuilder.Entity<Permission>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Permissi__3214EC27D51BC579");
+            entity.HasKey(e => e.Id).HasName("PK__Permissi__3214EC27186DA4BA");
 
             entity.ToTable("Permission");
 
@@ -244,7 +243,7 @@ public partial class RedditliteContext : DbContext
 
         modelBuilder.Entity<Post>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Post__3214EC27E0D2BB6B");
+            entity.HasKey(e => e.Id).HasName("PK__Post__3214EC27F0EFB781");
 
             entity.ToTable("Post");
 
@@ -260,16 +259,16 @@ public partial class RedditliteContext : DbContext
 
             entity.HasOne(d => d.FkForumNavigation).WithMany(p => p.Posts)
                 .HasForeignKey(d => d.FkForum)
-                .HasConstraintName("FK__Post__FK_Forum__4316F928");
+                .HasConstraintName("FK__Post__FK_Forum__47DBAE45");
 
             entity.HasOne(d => d.FkUserNavigation).WithMany(p => p.Posts)
                 .HasForeignKey(d => d.FkUser)
-                .HasConstraintName("FK__Post__FK_User__4222D4EF");
+                .HasConstraintName("FK__Post__FK_User__46E78A0C");
         });
 
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Role__3214EC27B6B13C74");
+            entity.HasKey(e => e.Id).HasName("PK__Role__3214EC27A486B8D4");
 
             entity.ToTable("Role");
 
@@ -277,25 +276,25 @@ public partial class RedditliteContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(20)
                 .IsUnicode(false);
+        });
 
-            entity.HasMany(d => d.FkPermissions).WithMany(p => p.FkRoles)
-                .UsingEntity<Dictionary<string, object>>(
-                    "RoleXpermission",
-                    r => r.HasOne<Permission>().WithMany()
-                        .HasForeignKey("FkPermission")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__RoleXPerm__FK_Pe__5629CD9C"),
-                    l => l.HasOne<Role>().WithMany()
-                        .HasForeignKey("FkRole")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__RoleXPerm__FK_Ro__5535A963"),
-                    j =>
-                    {
-                        j.HasKey("FkRole", "FkPermission").HasName("PK__RoleXPer__6BEDD7FA4547DFDB");
-                        j.ToTable("RoleXPermission");
-                        j.IndexerProperty<int>("FkRole").HasColumnName("FK_Role");
-                        j.IndexerProperty<int>("FkPermission").HasColumnName("FK_Permission");
-                    });
+        modelBuilder.Entity<RoleXpermission>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__RoleXPer__3214EC2728F31559");
+
+            entity.ToTable("RoleXPermission");
+
+            entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.FkPermission).HasColumnName("FK_Permission");
+            entity.Property(e => e.FkRole).HasColumnName("FK_Role");
+
+            entity.HasOne(d => d.FkPermissionNavigation).WithMany(p => p.RoleXpermissions)
+                .HasForeignKey(d => d.FkPermission)
+                .HasConstraintName("FK__RoleXPerm__FK_Pe__5AEE82B9");
+
+            entity.HasOne(d => d.FkRoleNavigation).WithMany(p => p.RoleXpermissions)
+                .HasForeignKey(d => d.FkRole)
+                .HasConstraintName("FK__RoleXPerm__FK_Ro__59FA5E80");
         });
 
         OnModelCreatingPartial(modelBuilder);

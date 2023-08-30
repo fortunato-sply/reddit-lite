@@ -11,5 +11,5 @@ public partial class Role
 
     public virtual ICollection<ForumXuserRole> ForumXuserRoles { get; set; } = new List<ForumXuserRole>();
 
-    public virtual ICollection<Permission> FkPermissions { get; set; } = new List<Permission>();
+    public virtual ICollection<RoleXpermission> RoleXpermissions { get; set; } = new List<RoleXpermission>();
 }

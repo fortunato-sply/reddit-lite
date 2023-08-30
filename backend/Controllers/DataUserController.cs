@@ -49,7 +49,7 @@ public class DataUserController : ControllerBase
         Username = userData.Username,
         Password = security.ApplyHash(userData.Password, salt),
         Salt = salt,
-        Born = userData.Born
+        Born = userData.Born ?? new DateTime()
       };
 
       await repo.Add(newUser);
